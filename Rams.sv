@@ -60,57 +60,48 @@ module kernelRam #(parameter N=8, bitSize=6, identifier=1) (clk, we, pixel_posit
         if (pixel_position_or_address == current_identifier) begin
           ram4 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier - 1)) begin
           ram3 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + 1)) begin
           ram5 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + (N-1))) begin
           ram2 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier - (N-1))) begin
           ram6 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier + (N))) begin
           ram7 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier - (N))) begin
           ram1 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + (N+1))) begin
           ram8 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier - (N+1))) begin
           ram0 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          //stored_pixel = ram[4]; 
         end
         
         //check if we should compute out value yet
