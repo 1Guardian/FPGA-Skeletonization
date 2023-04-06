@@ -47,9 +47,9 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
   generate
     for (i=0; i < ((N*N)); i = i + 1) begin : mask_block
       if ((i > N) && ((i - N) < (N*N)) && (((i + 1) % N) != 0) && (((i) % N) != 0))
-      	kernelRam u0 (clk, we, re_blocks[i], block_address, block_data_in, i, we_blocks[i]);
+      	kernelRam #(.N(N), .bitSize(bitSize), .identifier(i)) u0 (clk, we, re_blocks[i], block_address, block_data_in, we_blocks[i]);
       else
-        kernelPaddedRam u0 (clk, we, re_blocks[i], block_address, block_data_in, i, we_blocks[i]);
+        kernelPaddedRam #(.N(N), .bitSize(bitSize)) u0 (clk, we, re_blocks[i], block_address, block_data_in, i, we_blocks[i]);
     end
   endgenerate
   
