@@ -29,8 +29,8 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   reg [pixelWidth-1:0] stored_returned_value;
   
   //read counter to keep track of which position in the ram we are looking at
-  reg [pixelWidth-1:0] read_counter;
-  reg [pixelWidth-1:0] offset;
+  reg [bitSize+1:0] read_counter;
+  reg [bitSize+1:0] offset;
   reg [pixelWidth-1:0] data_in_register;
   reg flip;
   

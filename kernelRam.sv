@@ -35,9 +35,9 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   reg [pixelWidth-1:0] smallest;
   
   //reg(s) dedicated to keeping track of variable pixels
-  reg [pixelWidth-1:0] current_identifier;
-  reg [pixelWidth-1:0] variable_results [((N/3) + 1):0];
-  reg [pixelWidth-1:0] meta_write_counter;
+  reg [bitSize+1:0] current_identifier;
+  reg [bitSize+1:0] variable_results [((N/3) + 1):0];
+  reg [bitSize+1:0] meta_write_counter;
   
   //register to store the value of the result pixel in question
   reg [pixelWidth-1:0] result;

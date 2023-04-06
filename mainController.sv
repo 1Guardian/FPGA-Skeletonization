@@ -35,7 +35,7 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   
   //wire output for the write controller and counter
   wire [bitSize:0] counter_output;
-  wire [pixelWidth-1:0] write_controller_output;
+  wire [bitSize+1:0] write_controller_output;
   
   //make wires to connect to processingElement
   wire processingElement_clk;
