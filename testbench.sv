@@ -4,7 +4,6 @@
 `include "counter.sv"
 `include "writeController.sv"
 `include "centerMask.sv"
-`include "paddedRam.sv"
 
 `timescale 1 us / 10 ps
 
