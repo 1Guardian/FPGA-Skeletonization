@@ -7,43 +7,43 @@
 //				are children of it, and routes all inputs
 // 				and outputs
 //***********************************************************
-module mainController #(parameter N=8, bitSize=6) (clk, we, data_in);
+module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data_in);
   input clk;
   input we;
-  input [7:0] data_in;
+  input [pixelWidth-1:0] data_in;
   
   //make wires to connect inputs to ram block
   wire memoryBlock__clk;
   wire memoryBlock_we;
-  wire [7:0] memoryBlock_in;
+  wire [pixelWidth-1:0] memoryBlock_in;
   wire [bitSize:0] memoryBlock_addr_in_0;
   wire [bitSize:0] memoryBlock_addr_in_1;
-  wire [7:0] memoryBlock_out_0; //output
-  wire [7:0] memoryBlock_out_1; //output
+  wire [pixelWidth-1:0] memoryBlock_out_0; //output
+  wire [pixelWidth-1:0] memoryBlock_out_1; //output
   
   //wires for communication between ram and the masks
   //controller/representative
   wire [bitSize:0] requesting_address;
-  wire [7:0] received_data;
+  wire [pixelWidth-1:0] received_data;
   
   //global write element
   wire global_we;
   wire element_we;
   //assign element_we = we;
   assign global_we = we | element_we;
-  wire [7:0] element_writeout_data;
+  wire [pixelWidth-1:0] element_writeout_data;
   
   //wire output for the write controller and counter
   wire [bitSize:0] counter_output;
-  wire [7:0] write_controller_output;
+  wire [pixelWidth-1:0] write_controller_output;
   
   //make wires to connect to processingElement
   wire processingElement_clk;
   wire processingElement_we;
   wire processingElement_re;
-  wire [7:0] processingElement_in;
+  wire [pixelWidth-1:0] processingElement_in;
   wire [bitSize:0] processingElement_in_0;
-  wire [7:0] processingElement_out_0;
+  wire [pixelWidth-1:0] processingElement_out_0;
   
   //assign the wires to the inputs
   assign memoryBlock__clk = clk;
@@ -51,7 +51,7 @@ module mainController #(parameter N=8, bitSize=6) (clk, we, data_in);
   assign memoryBlock_in = data_in;
   
   //declare a segment of Memory for storing the image
-  v_rams_09 #(.N(N), .bitSize(bitSize)) memoryBlock (
+  v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) memoryBlock (
     .clk(clk), 
     .we(global_we), 
     .data_in(write_controller_output), 
@@ -69,7 +69,7 @@ module mainController #(parameter N=8, bitSize=6) (clk, we, data_in);
   );
   
   //declare a write controller to use
-  writeController #(.N(N), .bitSize(bitSize)) write_controller (
+  writeController #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) write_controller (
     .clk(clk), 
     .we(we), 
     .we_two(element_we),
@@ -80,7 +80,7 @@ module mainController #(parameter N=8, bitSize=6) (clk, we, data_in);
   
   //declare the center mask to act on behalf
   //of the mask set
-  centerMask #(.N(N), .bitSize(bitSize)) central_Mask (
+  centerMask #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) central_Mask (
     .clk(clk), 
     .we(~global_we), 
     .re(~global_we),

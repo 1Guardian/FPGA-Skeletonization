@@ -10,16 +10,16 @@
 //				however, it is definitely not elegant and
 //				really does not need to be its own module
 //***********************************************************
-module writeController #(parameter N=8, bitSize=6) (clk, we, we_two, data_0, data_1, res);
+module writeController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, we_two, data_0, data_1, res);
   input clk;
   input we;
   input we_two;
-  input [7:0] data_0;
-  input [7:0] data_1;
-  output [7:0] res;
+  input [pixelWidth-1:0] data_0;
+  input [pixelWidth-1:0] data_1;
+  output [pixelWidth-1:0] res;
   
   //register to store address
-  reg [7:0] stored;
+  reg [pixelWidth-1:0] stored;
   reg flip;
   
   //set reg to 0

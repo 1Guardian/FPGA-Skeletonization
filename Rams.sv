@@ -9,45 +9,45 @@
 //				and then the centerMask collects them and
 //				sends them to the Ram block.
 //***********************************************************
-module kernelRam #(parameter N=8, bitSize=6, identifier=1) (clk, we, pixel_position_or_address, data_in, primary_output);
+module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk, we, pixel_position_or_address, data_in, primary_output);
   input clk;
   input we;
   input [bitSize:0] pixel_position_or_address;
-  input [7:0] data_in;
-  output [7:0] primary_output;
+  input [pixelWidth-1:0] data_in;
+  output [pixelWidth-1:0] primary_output;
   
   //memory declaration
-  reg [7:0] ram0;
-  reg [7:0] ram1;
-  reg [7:0] ram2;
-  reg [7:0] ram3;
-  reg [7:0] ram4;
-  reg [7:0] ram5;
-  reg [7:0] ram6;
-  reg [7:0] ram7;
-  reg [7:0] ram8;
+  reg [pixelWidth-1:0] ram0;
+  reg [pixelWidth-1:0] ram1;
+  reg [pixelWidth-1:0] ram2;
+  reg [pixelWidth-1:0] ram3;
+  reg [pixelWidth-1:0] ram4;
+  reg [pixelWidth-1:0] ram5;
+  reg [pixelWidth-1:0] ram6;
+  reg [pixelWidth-1:0] ram7;
+  reg [pixelWidth-1:0] ram8;
 
   reg [4:0] write_counter;
-  reg [7:0] read_out;
-  reg [7:0] stored_pixel;
+  reg [pixelWidth-1:0] read_out;
+  reg [pixelWidth-1:0] stored_pixel;
   reg flip;
-  reg [7:0] largest;
-  reg [7:0] smallest;
+  reg [pixelWidth-1:0] largest;
+  reg [pixelWidth-1:0] smallest;
   
   //reg(s) dedicated to keeping track of variable pixels
-  reg [7:0] current_identifier;
-  reg [7:0] variable_results [((N/3) + 1):0];
-  reg [7:0] meta_write_counter;
+  reg [pixelWidth-1:0] current_identifier;
+  reg [pixelWidth-1:0] variable_results [((N/3) + 1):0];
+  reg [pixelWidth-1:0] meta_write_counter;
   
   //register to store the value of the result pixel in question
-  reg [7:0] result;
+  reg [pixelWidth-1:0] result;
   
   //set counter
   initial begin
     write_counter = 0;
     flip = 1;
     largest = 0;
-    smallest = 255;
+    smallest = (2**pixelWidth) - 1;
     current_identifier = identifier;
     meta_write_counter = 0;
   end
@@ -123,7 +123,7 @@ module kernelRam #(parameter N=8, bitSize=6, identifier=1) (clk, we, pixel_posit
           write_counter = 0;
           current_identifier = current_identifier + (N*3);
           largest = 0;
-          smallest = 255;
+          smallest = (2**pixelWidth) - 1;
         end
       end
 
@@ -135,7 +135,7 @@ module kernelRam #(parameter N=8, bitSize=6, identifier=1) (clk, we, pixel_posit
           current_identifier = identifier;
           meta_write_counter = 0;
           largest = 0;
-          smallest = 255;
+          smallest = (2**pixelWidth) - 1;
         end
         
         //increase which value the outwire is getting set to
@@ -149,11 +149,11 @@ module kernelRam #(parameter N=8, bitSize=6, identifier=1) (clk, we, pixel_posit
           current_identifier = identifier;
           meta_write_counter = 0;
           largest = 0;
-          smallest = 255;
+          smallest = (2**pixelWidth) - 1;
         end
 
         largest = 0;
-        smallest = 255;
+        smallest = (2**pixelWidth) - 1;
       end
     
       //write out current pixel result constantly

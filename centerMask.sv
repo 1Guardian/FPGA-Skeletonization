@@ -9,29 +9,29 @@
 //				convoluted, and it loads the rams again
 //				when they are ready to be reset
 //***********************************************************
-module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_enable, primary_address, primary_output);
+module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data_in, write_out_enable, primary_address, primary_output);
   input clk;
   input we;
   input re;
-  input [7:0] data_in;
+  input [pixelWidth-1:0] data_in;
   output write_out_enable;
   output [bitSize:0] primary_address;
-  output [7:0] primary_output;
+  output [pixelWidth-1:0] primary_output;
   
   //registers for storing data that will be used by the kernels
   //under consideration, in addition to a register for storing
   //write completion events
-  wire [7:0] we_blocks [((N*3)-1):0];
+  wire [pixelWidth-1:0] we_blocks [((N*3)-1):0];
   wire [bitSize:0] block_address;
-  wire [7:0] block_data_in;
-  wire [7:0] block_data_out;
+  wire [pixelWidth-1:0] block_data_in;
+  wire [pixelWidth-1:0] block_data_out;
   reg element_we_reg;
-  reg [7:0] stored_returned_value;
+  reg [pixelWidth-1:0] stored_returned_value;
   
   //read counter to keep track of which position in the ram we are looking at
-  reg [7:0] read_counter;
-  reg [7:0] offset;
-  reg [7:0] data_in_register;
+  reg [pixelWidth-1:0] read_counter;
+  reg [pixelWidth-1:0] offset;
+  reg [pixelWidth-1:0] data_in_register;
   reg flip;
   
   //set counter
@@ -47,7 +47,7 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
   
   generate
     for (i=0; i < ((N*3)); i = i + 1) begin : mask_block
-      kernelRam #(.N(N), .bitSize(bitSize), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i]);
+      kernelRam #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i]);
     end
   endgenerate
   

@@ -14,6 +14,7 @@ module tb;
   	//Parameter to control the size of the image that will be processed
   	parameter N = 8;
   	parameter bitSize = $clog2(N*N);
+    parameter pixelWidth = 8;
   	
     // Inputs
     reg clk;
@@ -30,7 +31,7 @@ module tb;
   	integer fd;
 
     // Instantiate the Unit Under Test (UUT)
-  mainController #(.N(N), .bitSize(bitSize)) controller (
+  mainController #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) controller (
         .clk(clk), 
         .we(wr_en), 
         .data_in(data_in)
