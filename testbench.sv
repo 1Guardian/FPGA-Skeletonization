@@ -22,12 +22,12 @@ module tb;
     // Inputs
     reg clk;
     reg wr_en;
-  	reg [7:0] data_in;
+  	reg [pixelWidth-1:0] data_in;
   	reg [15:0] i;
   	reg flip;
 
   	//image file storage
-  	reg [7:0] image [63:0];
+  	reg [pixelWidth-1:0] image [63:0];
 
   	//file variable
   	integer fd;
