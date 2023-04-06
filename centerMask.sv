@@ -62,7 +62,7 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
       
       //writing to masks
       if (we) begin
-        if (read_counter < ((N*N))) begin
+        if (read_counter < ((N*N) - 1)) begin
           data_in_register = data_in;
           read_counter = read_counter + 1;
         end
@@ -74,8 +74,17 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
       
       //shite added here dumbass
       if (element_we_reg)begin
-        if (read_counter < ((N*N))) begin
-          stored_returned_value = we_blocks[read_counter];
+        if (read_counter < ((N*N) - 1)) begin
+
+          //ignore the values that should be padding
+          if (read_counter < N || read_counter > ((N*N) - N) || read_counter % N == 0 || (read_counter + 1) % N == 0) begin
+            stored_returned_value = 0;
+          end 
+
+          //else ask for the value from the kernel ram
+          else begin
+            stored_returned_value = we_blocks[read_counter];
+          end
           read_counter = read_counter + 1;
         end
         else begin

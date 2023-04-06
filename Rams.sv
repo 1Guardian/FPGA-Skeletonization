@@ -124,11 +124,30 @@ module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_add
           current_identifier = current_identifier + (N*3);
         end
       end
+
+      //begin reading out process
       else begin
+
+        //reset current identifier if needed
+        if (pixel_position_or_address <= 1) begin 
+          current_identifier = identifier;
+          meta_write_counter = 0;
+        end
+        
+        //increase which value the outwire is getting set to
+        if (pixel_position_or_address > current_identifier + (N+1)) begin
+          current_identifier = current_identifier + (N*3);
+          meta_write_counter = meta_write_counter + 1;
+        end
+
+        //reset for new read in cycle
+        if (pixel_position_or_address == ((N*N)-1)) begin
+          current_identifier = identifier;
+          meta_write_counter = 0;
+        end
+
         largest = 0;
         smallest = 255;
-        current_identifier = identifier;
-        meta_write_counter = 0;
       end
     
       //write out current pixel result constantly
