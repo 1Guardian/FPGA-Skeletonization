@@ -21,7 +21,7 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
   //registers for storing data that will be used by the kernels
   //under consideration, in addition to a register for storing
   //write completion events
-  wire [7:0] we_blocks [((N*N)-1):0];
+  wire [7:0] we_blocks [((N*3)-1):0];
   wire [bitSize:0] block_address;
   wire [7:0] block_data_in;
   wire [7:0] block_data_out;
@@ -30,6 +30,7 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
   
   //read counter to keep track of which position in the ram we are looking at
   reg [7:0] read_counter;
+  reg [7:0] offset;
   reg [7:0] data_in_register;
   reg flip;
   
@@ -38,17 +39,15 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
     read_counter = 0;
     flip <= 1;
     element_we_reg <= 0;
+    offset <= 0;
   end
   
   //generate the RAM segments that will check each pixel
   genvar i;
   
   generate
-    for (i=0; i < ((N*N)); i = i + 1) begin : mask_block
-      if ((i > N) && ((i - N) < (N*N)) && (((i + 1) % N) != 0) && (((i) % N) != 0))
-      	kernelRam #(.N(N), .bitSize(bitSize), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i]);
-      else
-        kernelPaddedRam #(.N(N), .bitSize(bitSize)) u0 (clk, we, block_address, block_data_in, i, we_blocks[i]);
+    for (i=0; i < ((N*3)); i = i + 1) begin : mask_block
+      kernelRam #(.N(N), .bitSize(bitSize), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i]);
     end
   endgenerate
   
@@ -79,13 +78,19 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
 
           //else ask for the value from the kernel ram
           else begin
-            stored_returned_value = we_blocks[read_counter];
+            stored_returned_value = we_blocks[read_counter - offset];
           end
           read_counter = read_counter + 1;
+
+          //check if we need to update the offset
+          if ((read_counter + 1) % (N*3) == 0) begin
+            offset = offset + (N*3);
+          end
         end
         else begin
           read_counter = 0;
           element_we_reg = 0;
+          offset = 0;
         end
       end
     end
