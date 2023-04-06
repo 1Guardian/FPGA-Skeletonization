@@ -76,11 +76,11 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + (N-1))) begin
-          ram2 = data_in; //write counter and ram acts as queue to keep order
+          ram6 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
         end
         else if (pixel_position_or_address == (current_identifier - (N-1))) begin
-          ram6 = data_in; //write counter and ram acts as queue to keep order
+          ram2 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
         end
         else if (pixel_position_or_address == (current_identifier + (N))) begin
@@ -109,9 +109,33 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
           
           //check if the pixel is a border
           if ((largest - smallest) >= 1) begin
-            variable_results[meta_write_counter] = 0; 
-            stored_pixel = 0;
-            meta_write_counter = meta_write_counter + 1;
+
+            //if we determine it's a border, check to see if it's a corner
+            if (ram4 >= 1 && ram5 >= 1 && ram7 >= 1 && ram8 >= 1 && ram0 < 1 && ram1 < 1 && ram3 < 1) begin
+              variable_results[meta_write_counter] = ram4; 
+              stored_pixel = ram4;
+              meta_write_counter = meta_write_counter + 1;
+            end
+            else if (ram4 >= 1 && ram5 >= 1 && ram1 >= 1 && ram2 >= 1 && ram3 < 1 && ram6 < 1 && ram7 < 1) begin
+              variable_results[meta_write_counter] = ram4; 
+              stored_pixel = ram4;
+              meta_write_counter = meta_write_counter + 1;
+            end
+            else if (ram4 >= 1 && ram3 >= 1 && ram0 >= 1 && ram1 >= 1 && ram7 < 1 && ram8 < 1 && ram5 < 1) begin
+              variable_results[meta_write_counter] = ram4; 
+              stored_pixel = ram4;
+              meta_write_counter = meta_write_counter + 1;
+            end
+            else if (ram4 >= 1 && ram3 >= 1 && ram7 >= 1 && ram6 >= 1 && ram2 < 1 && ram1 < 1 && ram5 < 1) begin
+              variable_results[meta_write_counter] = ram4; 
+              stored_pixel = ram4;
+              meta_write_counter = meta_write_counter + 1;
+            end
+            else begin
+              variable_results[meta_write_counter] = 0; 
+              stored_pixel = 0;
+              meta_write_counter = meta_write_counter + 1;
+            end
           end
           else begin
             variable_results[meta_write_counter] = ram4; 
