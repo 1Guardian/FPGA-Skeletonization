@@ -29,7 +29,6 @@ module tb;
   	//image file storage
   	reg [7:0] image [63:0];
 
-  
   	//file variable
   	integer fd;
 
