@@ -16,10 +16,7 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   wire memoryBlock__clk;
   wire memoryBlock_we;
   wire [pixelWidth-1:0] memoryBlock_in;
-  wire [bitSize:0] memoryBlock_addr_in_0;
-  wire [bitSize:0] memoryBlock_addr_in_1;
   wire [pixelWidth-1:0] memoryBlock_out_0; //output
-  wire [pixelWidth-1:0] memoryBlock_out_1; //output
   
   //wires for communication between ram and the masks
   //controller/representative
@@ -29,6 +26,7 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   //global write element
   wire global_we;
   wire element_we;
+
   //assign element_we = we;
   assign global_we = we | element_we;
   wire [pixelWidth-1:0] element_writeout_data;
@@ -36,19 +34,6 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   //wire output for the write controller and counter
   wire [bitSize:0] counter_output;
   wire [bitSize+1:0] write_controller_output;
-  
-  //make wires to connect to processingElement
-  wire processingElement_clk;
-  wire processingElement_we;
-  wire processingElement_re;
-  wire [pixelWidth-1:0] processingElement_in;
-  wire [bitSize:0] processingElement_in_0;
-  wire [pixelWidth-1:0] processingElement_out_0;
-  
-  //assign the wires to the inputs
-  assign memoryBlock__clk = clk;
-  assign memoryBlock_we = we;
-  assign memoryBlock_in = data_in;
   
   //declare a segment of Memory for storing the image
   v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) memoryBlock (
