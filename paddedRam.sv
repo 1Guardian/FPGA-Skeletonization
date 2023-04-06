@@ -15,10 +15,9 @@
 //				(just returning the padded value)
 //***********************************************************
 
-module kernelPaddedRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_address, data_in, identifier, primary_output);
+module kernelPaddedRam #(parameter N=8, bitSize=6) (clk, we, pixel_position_or_address, data_in, identifier, primary_output);
   input clk;
   input we;
-  input re;
   input [bitSize:0] pixel_position_or_address;
   input [7:0] data_in;
   input [7:0] identifier;

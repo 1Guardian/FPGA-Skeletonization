@@ -9,17 +9,24 @@
 //				and then the centerMask collects them and
 //				sends them to the Ram block.
 //***********************************************************
-module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_address, data_in, identifier, primary_output);
+module kernelRam #(parameter N=8, bitSize=6, identifier=1) (clk, we, pixel_position_or_address, data_in, primary_output);
   input clk;
   input we;
-  input re;
   input [bitSize:0] pixel_position_or_address;
   input [7:0] data_in;
-  input [7:0] identifier;
   output [7:0] primary_output;
   
   //memory declaration
-  reg [7:0] ram [8:0];
+  reg [7:0] ram0;
+  reg [7:0] ram1;
+  reg [7:0] ram2;
+  reg [7:0] ram3;
+  reg [7:0] ram4;
+  reg [7:0] ram5;
+  reg [7:0] ram6;
+  reg [7:0] ram7;
+  reg [7:0] ram8;
+
   reg [4:0] write_counter;
   reg [7:0] read_out;
   reg [7:0] stored_pixel;
@@ -51,57 +58,57 @@ module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_add
       if (we) begin
 
         if (pixel_position_or_address == current_identifier) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram4 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier - 1)) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram3 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + 1)) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram5 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + (N-1))) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram2 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier - (N-1))) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram6 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier + (N))) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram7 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier - (N))) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram1 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + (N+1))) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram8 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier - (N+1))) begin
-          ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
+          ram0 = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
           //stored_pixel = ram[4]; 
         end
@@ -116,8 +123,8 @@ module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_add
             meta_write_counter = meta_write_counter + 1;
           end
           else begin
-            variable_results[meta_write_counter] = ram[4]; 
-            stored_pixel = ram[4];
+            variable_results[meta_write_counter] = ram4; 
+            stored_pixel = ram4;
             meta_write_counter = meta_write_counter + 1;
           end
           

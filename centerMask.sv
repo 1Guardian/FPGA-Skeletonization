@@ -22,7 +22,6 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
   //under consideration, in addition to a register for storing
   //write completion events
   wire [7:0] we_blocks [((N*N)-1):0];
-  reg re_blocks [((N*N)-1):0];
   wire [bitSize:0] block_address;
   wire [7:0] block_data_in;
   wire [7:0] block_data_out;
@@ -47,18 +46,15 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
   generate
     for (i=0; i < ((N*N)); i = i + 1) begin : mask_block
       if ((i > N) && ((i - N) < (N*N)) && (((i + 1) % N) != 0) && (((i) % N) != 0))
-      	kernelRam #(.N(N), .bitSize(bitSize), .identifier(i)) u0 (clk, we, re_blocks[i], block_address, block_data_in, we_blocks[i]);
+      	kernelRam #(.N(N), .bitSize(bitSize), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i]);
       else
-        kernelPaddedRam #(.N(N), .bitSize(bitSize)) u0 (clk, we, re_blocks[i], block_address, block_data_in, i, we_blocks[i]);
+        kernelPaddedRam #(.N(N), .bitSize(bitSize)) u0 (clk, we, block_address, block_data_in, i, we_blocks[i]);
     end
   endgenerate
   
   //run every clock cycle as soon as loading is done
   always @(posedge clk) begin
     if (flip) begin
-      
-      //reset last block
-      re_blocks[read_counter -1] = 0;
       
       //writing to masks
       if (we) begin
@@ -73,7 +69,7 @@ module centerMask #(parameter N=8, bitSize=6) (clk, we, re, data_in, write_out_e
       end
       
       //shite added here dumbass
-      if (element_we_reg)begin
+      if (element_we_reg) begin
         if (read_counter < ((N*N) - 1)) begin
 
           //ignore the values that should be padding
