@@ -11,10 +11,14 @@
 //test bench module
 module tb;
   
-  	//Parameter to control the size of the image that will be processed
+  	//Parameter to control the size of the image that will be processed 
   	parameter N = 8;
-  	parameter bitSize = $clog2(N*N);
+
+    //parameter to control how many bits are needed to represent the pixel range
     parameter pixelWidth = 8;
+
+    //parameter to control how many bits the counter will need (DO NOT SET MANUALLY)
+  	parameter bitSize = $clog2(N*N);
   	
     // Inputs
     reg clk;
