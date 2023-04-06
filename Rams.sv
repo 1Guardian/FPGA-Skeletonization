@@ -53,57 +53,57 @@ module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_add
         if (pixel_position_or_address == current_identifier) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier - 1)) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + 1)) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + (N-1))) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier - (N-1))) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier + (N))) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier - (N))) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
           largest = data_in >= largest ? data_in : largest;
           smallest = data_in <= smallest ? data_in : smallest;
         end
         else if (pixel_position_or_address == (current_identifier + (N+1))) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
         end
         else if (pixel_position_or_address == (current_identifier - (N+1))) begin
           ram[write_counter] = data_in; //write counter and ram acts as queue to keep order
           write_counter = write_counter + 1;
-          stored_pixel = ram[4]; 
+          //stored_pixel = ram[4]; 
         end
         
         //check if we should compute out value yet
@@ -112,16 +112,20 @@ module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_add
           //check if the pixel is a border
           if ((largest - smallest) >= 1) begin
             variable_results[meta_write_counter] = 0; 
+            stored_pixel = 0;
             meta_write_counter = meta_write_counter + 1;
           end
           else begin
             variable_results[meta_write_counter] = ram[4]; 
+            stored_pixel = ram[4];
             meta_write_counter = meta_write_counter + 1;
           end
           
           //get ready for next pixel
           write_counter = 0;
           current_identifier = current_identifier + (N*3);
+          largest = 0;
+          smallest = 255;
         end
       end
 
@@ -132,6 +136,8 @@ module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_add
         if (pixel_position_or_address <= 1) begin 
           current_identifier = identifier;
           meta_write_counter = 0;
+          largest = 0;
+          smallest = 255;
         end
         
         //increase which value the outwire is getting set to
@@ -144,6 +150,8 @@ module kernelRam #(parameter N=8, bitSize=6) (clk, we, re, pixel_position_or_add
         if (pixel_position_or_address == ((N*N)-1)) begin
           current_identifier = identifier;
           meta_write_counter = 0;
+          largest = 0;
+          smallest = 255;
         end
 
         largest = 0;
