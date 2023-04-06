@@ -1,5 +1,5 @@
 //imported modules
-`include "Rams.sv"
+`include "kernelRam.sv"
 `include "mainController.sv"
 `include "counter.sv"
 `include "writeController.sv"
