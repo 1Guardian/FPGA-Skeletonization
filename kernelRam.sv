@@ -310,10 +310,11 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
         end
         
         //check if we should compute out value yet
+        //FIXME: REGISTER OF 54 CANNOT BE SET BECAUSE PIXEL VALUE 63 FORCES IT TO ASSUME 0
         if (pixel_position_or_address > current_identifier + (N + 1 + 4) || pixel_position_or_address == ((N*N)-1)) begin
           
           //check if the pixel is a border
-          if ((largest - smallest) >= 1) begin
+          if ((largest - smallest) >= 1 && ram4 != 0) begin
 
             //if we determine it's a border, check to see if it's a corner
             if (Eout41 > 0 || Eout42 > 0 || Eout43 > 0 || Eout44 > 0) begin
