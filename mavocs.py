@@ -11,9 +11,9 @@ output_img = cv2.cvtColor(input_img.copy(), cv2.COLOR_GRAY2RGB)
 final_img = cv2.cvtColor(input_img.copy(), cv2.COLOR_GRAY2RGB)
 
 #each unique shift for the corners
-xy_1_shifts = [(1, 0), (1, 1), (0, 1), (-1, 1)]
+xy_1_shifts = [(-1, 0), (-1, -1), (0, -1), (1, -1)]
 xy_2_shifts = [(0, -1), (1, -1), (1, 0), (1, 1)]
-xy_3_shifts = [(-1, 0), (-1, -1), (0, -1), (1, -1)]
+xy_3_shifts = [(1, 0), (1, 1), (0, 1), (-1, 1)]
 xy_4_shifts = [(0, 1), (-1, 1), (-1, 0), (-1, -1)]
 
 #begin process
