@@ -4,6 +4,7 @@
 `include "counter.sv"
 `include "writeController.sv"
 `include "centerMask.sv"
+`include "Moravec-Flip-Flops.sv"
 
 `timescale 1 us / 10 ps
 
