@@ -21,7 +21,7 @@ module MoravecFF (clk, start, inCenter, inTarget, inE, Q, Eout);
         //begin if double latch is ready
         if (start) begin
             //do our one bit of math
-            Eout = ((((inTarget - inCenter) * (inTarget - inCenter)) < inE) ? ((inTarget - inCenter) * (inTarget - inCenter)): inE);
+            Eout = ((((inTarget - inCenter)**2) < inE) ? ((inTarget - inCenter)**2): inE);
             Q = 1'b1;
         end 
 
