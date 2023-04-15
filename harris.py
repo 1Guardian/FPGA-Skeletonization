@@ -4,7 +4,7 @@ import numpy as np
 threshold = 10
 
 #image stuff
-image = cv2.imread('square.png')
+image = cv2.imread('human.png')
   
 # convert the input image into
 # grayscale color space
