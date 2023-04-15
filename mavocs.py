@@ -3,7 +3,7 @@ import cv2
 threshold = 1000
 
 #image stuff
-input_img = cv2.imread("triangle.png", 0)
+input_img = cv2.imread("oblique.png", 0)
 cv2.imshow('Input Image', input_img)
 cv2.waitKey(0)
 
