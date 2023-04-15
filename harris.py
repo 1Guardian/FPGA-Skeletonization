@@ -4,7 +4,7 @@ import numpy as np
 threshold = 10
 
 #image stuff
-image = cv2.imread('triangletwo.png')
+image = cv2.imread('square.png')
   
 # convert the input image into
 # grayscale color space
@@ -19,10 +19,11 @@ final_img = np.zeros(input_img.shape)
 shifts = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
 #begin process
-for i in range(30):
+for i in range(60):
     
     #find corners with harris
-    operatedImage = np.float32(input_img)
+    blurred = cv2.GaussianBlur(input_img,(5,5),cv2.BORDER_DEFAULT)
+    operatedImage = np.float32(blurred)
     dest = cv2.cornerHarris(operatedImage, 2, 5, 0.07)
     dest = cv2.dilate(dest, None)
     image[dest < 0.01 * dest.max()] = [255,255,255]
