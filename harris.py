@@ -4,7 +4,7 @@ import numpy as np
 threshold = 10
 
 #image stuff
-image = cv2.imread('oblique.png')
+image = cv2.imread('triangletwo.png')
   
 # convert the input image into
 # grayscale color space
@@ -19,7 +19,7 @@ final_img = np.zeros(input_img.shape)
 shifts = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
 #begin process
-for i in range(200):
+for i in range(30):
     
     #find corners with harris
     operatedImage = np.float32(input_img)
@@ -61,5 +61,11 @@ for i in range(200):
     image = cv2.cvtColor(output_img.copy(), cv2.COLOR_GRAY2BGR)
     input_img = output_img.copy()
 
-cv2.imshow('Detected Corners', final_img)
+#do a final AND to get the inner skeleton
+for x in range(1, final_img.shape[0]-1):
+    for y in range(1, final_img.shape[1]-1):
+        if (harris_gray[x,y] < 255 or output_img[x,y] < 255):
+            final_img[x,y] = 76
+
+cv2.imshow('Skeleton', final_img)
 cv2.waitKey(0)
