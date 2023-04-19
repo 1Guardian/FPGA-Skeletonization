@@ -9,12 +9,13 @@
 //				convoluted, and it loads the rams again
 //				when they are ready to be reset
 //***********************************************************
-module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data_in, write_out_enable, primary_address, primary_output);
+module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data_in, write_out_enable, harrisBit, primary_address, primary_output);
   input clk;
   input we;
   input re;
   input [pixelWidth-1:0] data_in;
   output write_out_enable;
+  output harrisBit;
   output [bitSize:0] primary_address;
   output [pixelWidth-1:0] primary_output;
   
@@ -22,6 +23,7 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   //under consideration, in addition to a register for storing
   //write completion events
   wire [pixelWidth-1:0] we_blocks [((N*3)-1):0];
+  wire harrisCornerBits [((N*3)-1):0];
   wire [bitSize:0] block_address;
   wire [pixelWidth-1:0] block_data_in;
   wire [pixelWidth-1:0] block_data_out;
@@ -33,6 +35,7 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   reg [bitSize+1:0] offset;
   reg [pixelWidth-1:0] data_in_register;
   reg flip;
+  reg harrisBitStorage;
   
   //set counter
   initial begin
@@ -40,6 +43,7 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
     flip <= 1;
     element_we_reg <= 0;
     offset <= 0;
+    harrisBitStorage = 0;
   end
   
   //generate the RAM segments that will check each pixel
@@ -78,6 +82,7 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
 
           //else ask for the value from the kernel ram
           else begin
+            harrisBitStorage = harrisCornerBits[read_counter - offset];
             stored_returned_value = we_blocks[read_counter - offset];
           end
           read_counter = read_counter + 1;
@@ -103,4 +108,5 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   assign block_data_in = data_in_register;
   assign write_out_enable = element_we_reg;
   assign primary_output = stored_returned_value;
+  assign harrisBit = harrisBitStorage;
 endmodule

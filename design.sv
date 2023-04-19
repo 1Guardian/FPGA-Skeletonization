@@ -7,9 +7,10 @@
 //				it to show it's relationship to Xilinx's
 //				design
 //***********************************************************
-module v_rams_09 #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, primary_address, dual_read_address, data_in, primary_output, dual_output);
+module v_rams_09 #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, harrisBit, primary_address, dual_read_address, data_in, primary_output, dual_output);
   input clk;
   input we;
+  input harrisBit;
   input [bitSize:0] primary_address;
   input [bitSize:0] dual_read_address;
   input [pixelWidth-1:0] data_in;
@@ -31,8 +32,14 @@ module v_rams_09 #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, primary_a
   always @(posedge clk) begin
     if (flip) begin
       if (we) begin
-        stored = data_in;
-        ram[primary_address] = stored;
+        if (harrisBit) begin
+          stored = data_in;
+          ram[primary_address] = stored;
+        end
+        else begin
+          stored = 0;
+          ram[primary_address] = stored;
+        end
       end
     end
     flip = ~flip;

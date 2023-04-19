@@ -34,16 +34,34 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   //wire output for the write controller and counter
   wire [bitSize:0] counter_output;
   wire [bitSize+1:0] write_controller_output;
+
+  //wire for harris memory writing
+  wire harrisEnable;
+  wire [pixelWidth-1:0] harrisBlockOut;
+  wire [pixelWidth-1:0] harrisBlockOut_0;
   
   //declare a segment of Memory for storing the image
   v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) memoryBlock (
     .clk(clk), 
     .we(global_we), 
+    .harrisBit(1'b1),
     .data_in(write_controller_output), 
     .primary_address(counter_output), 
     .dual_read_address(requesting_address), 
     .primary_output(memoryBlock_out_0), 
     .dual_output(received_data)
+  );
+
+  //declare a segment of Memory for storing the Harris corners
+  v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) harrisMemoryBlock (
+    .clk(clk), 
+    .we(global_we), 
+    .harrisBit(harrisEnable),
+    .data_in(write_controller_output), 
+    .primary_address(counter_output), 
+    .dual_read_address(requesting_address), 
+    .primary_output(harrisBlockOut), 
+    .dual_output(harrisBlockOut_0)
   );
   
   //declare a counter to use for addressing
@@ -71,6 +89,7 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
     .re(~global_we),
     .data_in(received_data),
     .write_out_enable(element_we),
+    .harrisBit(harrisEnable),
     .primary_address(requesting_address),
     .primary_output(element_writeout_data)
   );
