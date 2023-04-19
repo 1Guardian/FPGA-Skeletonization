@@ -51,7 +51,7 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   
   generate
     for (i=0; i < ((N*3)); i = i + 1) begin : mask_block
-      kernelRam #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i]);
+      kernelRam #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i], harrisCornerBits[i]);
     end
   endgenerate
   

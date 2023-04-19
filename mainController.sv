@@ -44,7 +44,7 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) memoryBlock (
     .clk(clk), 
     .we(global_we), 
-    .harrisBit(1'b1),
+    .harrisBit(~harrisEnable),
     .data_in(write_controller_output), 
     .primary_address(counter_output), 
     .dual_read_address(requesting_address), 

@@ -9,12 +9,13 @@
 //				and then the centerMask collects them and
 //				sends them to the Ram block.
 //***********************************************************
-module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk, we, pixel_position_or_address, data_in, primary_output);
+module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk, we, pixel_position_or_address, data_in, primary_output, harris_bit);
   input clk;
   input we;
   input [bitSize:0] pixel_position_or_address;
   input [pixelWidth-1:0] data_in;
   output [pixelWidth-1:0] primary_output;
+  output harris_bit;
   
   //memory declaration
   reg [pixelWidth-1:0] ram0;
@@ -35,6 +36,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   reg [pixelWidth-1:0] smallest;
   reg detectCorner;
   reg isCorner;
+  reg harris_bit_read_out;
 
   //registers for Moravecs thresholds
   reg [13:0] E1;
@@ -81,6 +83,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   //reg(s) dedicated to keeping track of variable pixels
   reg [bitSize+1:0] current_identifier;
   reg [bitSize+1:0] variable_results [((N/3) + 1):0];
+  reg corresponding_harris_bits [((N/3) + 1):0];
   reg [bitSize+1:0] meta_write_counter;
   
   //register to store the value of the result pixel in question
@@ -319,17 +322,20 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
             //if we determine it's a border, check to see if it's a corner
             if (Eout41 > 0 || Eout42 > 0 || Eout43 > 0 || Eout44 > 0) begin
               variable_results[meta_write_counter] = ram4; 
+              corresponding_harris_bits[meta_write_counter] = 1;
               stored_pixel = ram4;
               meta_write_counter = meta_write_counter + 1;
             end
             else begin
               variable_results[meta_write_counter] = 0; 
+              corresponding_harris_bits[meta_write_counter] = 0;
               stored_pixel = 0;
               meta_write_counter = meta_write_counter + 1;
             end
           end
           else begin
             variable_results[meta_write_counter] = ram4; 
+            corresponding_harris_bits[meta_write_counter] = 0;
             stored_pixel = ram4;
             meta_write_counter = meta_write_counter + 1;
           end
@@ -374,6 +380,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     
       //write out current pixel result constantly
       read_out = variable_results[meta_write_counter];
+      harris_bit_read_out = corresponding_harris_bits[meta_write_counter];
     end
     
     flip = ~flip;
@@ -381,4 +388,5 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   
   //Assign the outputs on every clock cycle no matter what
   assign primary_output = read_out;
+  assign harris_bit = harris_bit_read_out;
 endmodule
