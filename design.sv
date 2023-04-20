@@ -22,23 +22,36 @@ module v_rams_09 #(parameter N=8, bitSize=6, pixelWidth = 8, HarrisCont = 1'b0) 
   reg [pixelWidth-1:0] ram [(N*N)-1:0];
   reg [pixelWidth-1:0] stored;
   reg flip;
-  
+  integer i;
+
   //initialize flip
   initial begin
     flip = 1;
+
+    for (i = 0; i < (N*N); i = i + 1) begin
+      ram[i] = 0;
+    end
   end
-  
+
   //on each cycle write if enabled
   always @(posedge clk) begin
     if (flip) begin
       if (we) begin
-        if (harrisBit == HarrisCont) begin
-          stored = data_in;
-          ram[primary_address] = stored;
+        if (HarrisCont == 0) begin 
+          if (harrisBit == HarrisCont) begin
+            stored = data_in;
+            ram[primary_address] = stored;
+          end
+          else begin
+            stored = 0;
+            ram[primary_address] = stored;
+          end
         end
         else begin
-          stored = 0;
-          ram[primary_address] = stored;
+          if (harrisBit == HarrisCont) begin
+            stored = data_in;
+            ram[primary_address] = stored;
+          end
         end
       end
     end
