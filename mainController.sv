@@ -41,10 +41,10 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   wire [pixelWidth-1:0] harrisBlockOut_0;
   
   //declare a segment of Memory for storing the image
-  v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) memoryBlock (
+  v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth), .HarrisCont(0)) memoryBlock (
     .clk(clk), 
     .we(global_we), 
-    .harrisBit(~harrisEnable),
+    .harrisBit(harrisEnable),
     .data_in(write_controller_output), 
     .primary_address(counter_output), 
     .dual_read_address(requesting_address), 
@@ -53,7 +53,7 @@ module mainController #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, data
   );
 
   //declare a segment of Memory for storing the Harris corners
-  v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth)) harrisMemoryBlock (
+  v_rams_09 #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth), .HarrisCont(1)) harrisMemoryBlock (
     .clk(clk), 
     .we(global_we), 
     .harrisBit(harrisEnable),
