@@ -408,6 +408,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
             if ((distressed_largest - distressed_smallest) >= 1 && ram4 != 0) begin
 
               debug = 12;
+              distressed_current_identifier = 0;
 
               //if we determine it's a border, check to see if it's a corner
               if (Eout41 > 0 || Eout42 > 0 || Eout43 > 0 || Eout44 > 0) begin
