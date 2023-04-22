@@ -92,6 +92,15 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   //register to store count of full convolutions
   reg [bitSize:0] convolutionCounter;
   reg latch;
+
+  //registers to deal with distressed pixels
+  reg [bitSize+1:0] distressed_meta_write_counter;
+  reg [bitSize+1:0] distressed_current_identifier;
+  reg [pixelWidth-1:0] distressed_largest;
+  reg [pixelWidth-1:0] distressed_smallest;
+
+  //register for debugging
+  reg [bitSize+1:0] debug;
   
   //set counter
   initial begin
@@ -108,6 +117,10 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     E4 = 10000;
     convolutionCounter = 0;
     latch = 1;
+    distressed_current_identifier = 0;
+    distressed_largest = 0;
+    distressed_smallest = 0;
+    distressed_meta_write_counter = 0;
   end
 
   //use this ff chain to run Moravec's algorithm
@@ -377,6 +390,57 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
 
         //reset latch
         latch = 1;
+
+        //check if we have a pixel in distress
+        if (current_identifier > 51 && current_identifier < 55) begin
+          distressed_largest = largest;
+          distressed_smallest = smallest;
+          distressed_current_identifier = current_identifier;
+          distressed_meta_write_counter = meta_write_counter;
+          detectCorner = 1'b1;
+        end
+
+        //help the distressed pixels finish their convolutions
+        if (distressed_current_identifier > 0) begin
+          if (pixel_position_or_address > 5) begin
+          
+            //check if the pixel is a border/corner
+            if ((distressed_largest - distressed_smallest) >= 1 && ram4 != 0) begin
+
+              debug = 12;
+
+              //if we determine it's a border, check to see if it's a corner
+              if (Eout41 > 0 || Eout42 > 0 || Eout43 > 0 || Eout44 > 0) begin
+                variable_results[distressed_meta_write_counter] = ram4; 
+                corresponding_harris_bits[distressed_meta_write_counter] = 1;
+                stored_pixel = ram4;
+                distressed_meta_write_counter = distressed_meta_write_counter + 1;
+              end
+              else begin
+                
+                //if thinning pass is at convergence, keep all borders
+                if (ram4 > 0 && convolutionCounter > 3) begin
+                  variable_results[distressed_meta_write_counter] = ram4; 
+                  corresponding_harris_bits[distressed_meta_write_counter] = 1;
+                end
+                else begin
+                  variable_results[distressed_meta_write_counter] = 0; 
+                  corresponding_harris_bits[distressed_meta_write_counter] = 0;
+                end
+                stored_pixel = 0;
+                distressed_meta_write_counter = distressed_meta_write_counter + 1;
+              end
+            end
+
+            //if not a corner or an edge
+            else begin
+              variable_results[distressed_meta_write_counter] = ram4; 
+              corresponding_harris_bits[distressed_meta_write_counter] = 0;
+              stored_pixel = ram4;
+              distressed_meta_write_counter = distressed_meta_write_counter + 1;
+            end
+          end
+        end
 
         //reset current identifier if needed
         if (pixel_position_or_address <= 1) begin 
