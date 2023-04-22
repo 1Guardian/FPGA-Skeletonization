@@ -88,6 +88,10 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   
   //register to store the value of the result pixel in question
   reg [pixelWidth-1:0] result;
+
+  //register to store count of full convolutions
+  reg [bitSize:0] convolutionCounter;
+  reg latch;
   
   //set counter
   initial begin
@@ -102,6 +106,8 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     E2 = 10000;
     E3 = 10000;
     E4 = 10000;
+    convolutionCounter = 0;
+    latch = 1;
   end
 
   //use this ff chain to run Moravec's algorithm
@@ -259,6 +265,13 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     if (flip) begin
       if (we) begin
 
+        //use latch to count (watch for metastability)
+        if (latch) begin
+          latch = 0;
+          convolutionCounter = convolutionCounter + 1;
+        end
+
+        //check input pixels to see if they belong to the neighborhood set
         if (pixel_position_or_address == current_identifier) begin
           ram4 = data_in;
           write_counter = write_counter + 1;
@@ -316,7 +329,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
         //FIXME: REGISTER OF 54 CANNOT BE SET BECAUSE PIXEL VALUE 63 FORCES IT TO ASSUME 0
         if (pixel_position_or_address > current_identifier + (N + 1 + 4) || pixel_position_or_address == ((N*N)-1)) begin
           
-          //check if the pixel is a border
+          //check if the pixel is a border/corner
           if ((largest - smallest) >= 1 && ram4 != 0) begin
 
             //if we determine it's a border, check to see if it's a corner
@@ -327,12 +340,22 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
               meta_write_counter = meta_write_counter + 1;
             end
             else begin
-              variable_results[meta_write_counter] = 0; 
-              corresponding_harris_bits[meta_write_counter] = 0;
+              
+              //if thinning pass is at convergence, keep all borders
+              if (ram4 > 0 && convolutionCounter > 3) begin
+                variable_results[meta_write_counter] = ram4; 
+                corresponding_harris_bits[meta_write_counter] = 1;
+              end
+              else begin
+                variable_results[meta_write_counter] = 0; 
+                corresponding_harris_bits[meta_write_counter] = 0;
+              end
               stored_pixel = 0;
               meta_write_counter = meta_write_counter + 1;
             end
           end
+
+          //if not a corner or an edge
           else begin
             variable_results[meta_write_counter] = ram4; 
             corresponding_harris_bits[meta_write_counter] = 0;
@@ -351,6 +374,9 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
 
       //begin reading out process
       else begin
+
+        //reset latch
+        latch = 1;
 
         //reset current identifier if needed
         if (pixel_position_or_address <= 1) begin 

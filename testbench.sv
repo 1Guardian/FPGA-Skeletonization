@@ -74,7 +74,7 @@ module tb;
       if (i == 64)
         wr_en = 0;
 
-      if (i == 384) begin
+      if (i == 640) begin
         $finish;
       end
       

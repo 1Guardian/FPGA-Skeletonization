@@ -39,11 +39,11 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   
   //set counter
   initial begin
-    read_counter = 0;
+    read_counter <= 0;
     flip <= 1;
     element_we_reg <= 0;
     offset <= 0;
-    harrisBitStorage = 0;
+    harrisBitStorage <= 0;
   end
   
   //generate the RAM segments that will check each pixel
