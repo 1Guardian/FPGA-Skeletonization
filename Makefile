@@ -26,7 +26,7 @@ svg:
 	netlistsvg -o Block-Diagrams/Moravec/design.svg Block-Diagrams/Moravec/design.json
 	netlistsvg -o Block-Diagrams/Moravec/writeController.svg Block-Diagrams/Moravec/writeController.json
 	netlistsvg -o Block-Diagrams/Moravec/counter.svg Block-Diagrams/Moravec/counter.json
-        netlistsvg -o Block-Diagrams/Moravec/Moravec-Flip-Flops.svg Block-Diagrams/Moravec/Moravec-Flip-Flops.json
+	netlistsvg -o Block-Diagrams/Moravec/Moravec-Flip-Flops.svg Block-Diagrams/Moravec/Moravec-Flip-Flops.json
 	rm Block-Diagrams/Moravec/*.json
 
 json:
