@@ -61,5 +61,4 @@ json:
         
 #Clean
 clean: 
-	rm $(WAV)
-        rm ./Block-Diagrams/Moravec/*.svg
+	rm $(WAV) ./Block-Diagrams/Moravec/*.svg
