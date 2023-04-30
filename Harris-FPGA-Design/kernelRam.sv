@@ -32,12 +32,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   reg detectCorner;
   reg isCorner;
   reg harris_bit_read_out;
-
-  //registers for Moravecs thresholds
-  reg [13:0] E1;
-  reg [13:0] E2;
-  reg [13:0] E3;
-  reg [13:0] E4;
+  reg [7:0] stored;
 
   //wires for moravec FFs 
   wire Q11;
@@ -54,26 +49,40 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   wire Q43;
   wire Q14;
   wire Q24;
-  wire Q34;
-  wire Q44;
 
-  //output wires for moravec FFs
-  wire [13:0] Eout11;
-  wire [13:0] Eout21;
-  wire [13:0] Eout31;
-  wire [13:0] Eout41;
-  wire [13:0] Eout12;
-  wire [13:0] Eout22;
-  wire [13:0] Eout32;
-  wire [13:0] Eout42;
-  wire [13:0] Eout13;
-  wire [13:0] Eout23;
-  wire [13:0] Eout33;
-  wire [13:0] Eout43;
-  wire [13:0] Eout14;
-  wire [13:0] Eout24;
-  wire [13:0] Eout34;
-  wire [13:0] Eout44;
+  //output of sobels module
+  wire [21:0] sobelIx0;
+  wire [21:0] sobelIx1;
+  wire [21:0] sobelIx2;
+  wire [21:0] sobelIx3;
+  wire [21:0] sobelIx4;
+  wire [21:0] sobelIx5;
+  wire [21:0] sobelIx6;
+  wire [21:0] sobelIx7;
+  wire [21:0] sobelIx8;
+  wire [21:0] sobelIy0;
+  wire [21:0] sobelIy1;
+  wire [21:0] sobelIy2;
+  wire [21:0] sobelIy3;
+  wire [21:0] sobelIy4;
+  wire [21:0] sobelIy5;
+  wire [21:0] sobelIy6;
+  wire [21:0] sobelIy7;
+  wire [21:0] sobelIy8;
+  wire [21:0] sobelIxy0;
+  wire [21:0] sobelIxy1;
+  wire [21:0] sobelIxy2;
+  wire [21:0] sobelIxy3;
+  wire [21:0] sobelIxy4;
+  wire [21:0] sobelIxy5;
+  wire [21:0] sobelIxy6;
+  wire [21:0] sobelIxy7;
+  wire [21:0] sobelIxy8;
+
+  //registers to store Ixx, Iyy, and Ixy
+  wire [26:0] Ixx;
+  wire [26:0] Iyy;
+  wire [26:0] Ixy;
 
   //reg(s) dedicated to keeping track of variable pixels
   reg [bitSize+1:0] current_identifier;
@@ -106,10 +115,6 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     current_identifier = identifier;
     meta_write_counter = 0;
     detectCorner = 0;
-    E1 = 10000;
-    E2 = 10000;
-    E3 = 10000;
-    E4 = 10000;
     convolutionCounter = 0;
     latch = 1;
     distressed_current_identifier = 0;
@@ -118,6 +123,113 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     distressed_meta_write_counter = 0;
     currentWrite = 0;
   end
+
+  //define harris modules needed
+  Sobels sobelOperator (
+  .clk(clk),
+  .start(detectCorner),
+  .inputPixels0(ram[0]),
+  .inputPixels1(ram[1]),
+  .inputPixels2(ram[2]),
+  .inputPixels3(ram[3]),
+  .inputPixels4(ram[4]),
+  .inputPixels5(ram[5]),
+  .inputPixels6(ram[6]),
+  .inputPixels7(ram[7]),
+  .inputPixels8(ram[8]),
+  .inputPixels9(ram[9]),
+  .inputPixels10(ram[10]),
+  .inputPixels11(ram[11]),
+  .inputPixels12(ram[12]),
+  .inputPixels13(ram[13]),
+  .inputPixels14(ram[14]),
+  .inputPixels15(ram[15]),
+  .inputPixels16(ram[16]),
+  .inputPixels17(ram[17]),
+  .inputPixels18(ram[18]),
+  .inputPixels19(ram[19]),
+  .inputPixels20(ram[20]),
+  .inputPixels21(ram[21]),
+  .inputPixels22(ram[22]),
+  .inputPixels23(ram[23]),
+  .inputPixels24(ram[24]),
+  .Q(Q11),
+  .OIx0(sobelIx0),
+  .OIx1(sobelIx1),
+  .OIx2(sobelIx2),
+  .OIx3(sobelIx3),  
+  .OIx4(sobelIx4),
+  .OIx5(sobelIx5),
+  .OIx6(sobelIx6),
+  .OIx7(sobelIx7),
+  .OIx8(sobelIx8),
+  .OIy0(sobelIy0), 
+  .OIy1(sobelIy1), 
+  .OIy2(sobelIy2), 
+  .OIy3(sobelIy3), 
+  .OIy4(sobelIy4), 
+  .OIy5(sobelIy5), 
+  .OIy6(sobelIy6), 
+  .OIy7(sobelIy7), 
+  .OIy8(sobelIy8),
+  .OIxy0(sobelIxy0), 
+  .OIxy1(sobelIxy1), 
+  .OIxy2(sobelIxy2), 
+  .OIxy3(sobelIxy3), 
+  .OIxy4(sobelIxy4), 
+  .OIxy5(sobelIxy5), 
+  .OIxy6(sobelIxy6), 
+  .OIxy7(sobelIxy7), 
+  .OIxy8(sobelIxy8)  
+  );
+  
+  //Ixx Gaussian applier
+  Gaussian xguassianOperator(
+  .clk(clk),
+  .start(Q11),
+  .Ix0(sobelIx0),
+  .Ix1(sobelIx1),
+  .Ix2(sobelIx2),
+  .Ix3(sobelIx3),
+  .Ix4(sobelIx4),
+  .Ix5(sobelIx5),
+  .Ix6(sobelIx6),
+  .Ix7(sobelIx7),
+  .Ix8(sobelIx8),
+  .finalValue(Ixx)
+  );
+
+  //Iyy Gaussian applier
+  Gaussian yguassianOperator(
+  .clk(clk),
+  .start(Q11),
+  .Ix0(sobelIy0),
+  .Ix1(sobelIy1),
+  .Ix2(sobelIy2),
+  .Ix3(sobelIy3),
+  .Ix4(sobelIy4),
+  .Ix5(sobelIy5),
+  .Ix6(sobelIy6),
+  .Ix7(sobelIy7),
+  .Ix8(sobelIy8),
+  .finalValue(Iyy)
+  );
+
+  //Ixy Gaussian applier
+  Gaussian xyguassianOperator(
+  .clk(clk),
+  .start(Q11),
+  .Ix0(sobelIxy0),
+  .Ix1(sobelIxy1),
+  .Ix2(sobelIxy2),
+  .Ix3(sobelIxy3),
+  .Ix4(sobelIxy4),
+  .Ix5(sobelIxy5),
+  .Ix6(sobelIxy6),
+  .Ix7(sobelIxy7),
+  .Ix8(sobelIxy8),
+  .finalValue(Ixy)
+  );
   
   //on each cycle write if enabled
   always @(posedge clk) begin
@@ -157,6 +269,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
             (pixel_position_or_address == (current_identifier + (N + N + 1))) ||
             (pixel_position_or_address == (current_identifier + (N + N + 2)))) begin
           ram[currentWrite] = data_in;
+          stored = data_in;
           write_counter = write_counter + 1;
           currentWrite = currentWrite + 1;
           largest = data_in >= largest ? data_in : largest;
@@ -167,17 +280,18 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
         if (pixel_position_or_address > current_identifier + (N + N + 2)) begin
             //set the bit for the start of the ff chains
             detectCorner = 1'b1;
+            currentWrite = 0;
         end
         
         //check if we should compute out value yet
         //FIXME: REGISTER OF 54 CANNOT BE SET BECAUSE PIXEL VALUE 63 FORCES IT TO ASSUME 0
-        if (pixel_position_or_address > current_identifier + (N + 1 + 4) || pixel_position_or_address == ((N*N)-1)) begin
+        if (pixel_position_or_address > current_identifier + (N + N + 2 + 3) || pixel_position_or_address == ((N*N)-1)) begin
           
           //check if the pixel is a border/corner
           if ((largest - smallest) >= 1 && ram[12] != 0) begin
 
             //if we determine it's a border, check to see if it's a corner
-            if (Eout41 > 0 || Eout42 > 0 || Eout43 > 0 || Eout44 > 0) begin
+            if (((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy))) > 10) begin
               variable_results[meta_write_counter] = ram[12]; 
               corresponding_harris_bits[meta_write_counter] = 1;
               stored_pixel = ram[12];
@@ -209,7 +323,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
           
           //get ready for next pixel
           write_counter = 0;
-          current_identifier = current_identifier + (N*3);
+          current_identifier = current_identifier + (N*5);
           largest = 0;
           smallest = (2**pixelWidth) - 1;
           detectCorner = 1'b0;
@@ -223,7 +337,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
         latch = 1;
 
         //check if we have a pixel in distress
-        if (current_identifier > 51 && current_identifier < 55) begin
+        if (current_identifier > 42 && current_identifier < 46) begin
           distressed_largest = largest;
           distressed_smallest = smallest;
           distressed_current_identifier = current_identifier;
@@ -242,7 +356,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
               distressed_current_identifier = 0;
 
               //if we determine it's a border, check to see if it's a corner
-              if (Eout41 > 0 || Eout42 > 0 || Eout43 > 0 || Eout44 > 0) begin
+              if (1 > 0) begin
                 variable_results[distressed_meta_write_counter] = ram[12]; 
                 corresponding_harris_bits[distressed_meta_write_counter] = 1;
                 stored_pixel = ram[12];
@@ -283,8 +397,8 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
         end
         
         //increase which value the outwire is getting set to
-        if (pixel_position_or_address > current_identifier + (N+1)) begin
-          current_identifier = current_identifier + (N*3);
+        if (pixel_position_or_address > current_identifier + (N+N+2)) begin
+          current_identifier = current_identifier + (N*5);
           meta_write_counter = meta_write_counter + 1;
         end
 

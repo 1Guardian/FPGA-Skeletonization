@@ -23,8 +23,8 @@ module HarrisSquare (clk, start, inCenter, inTarget, inE, Q, Eout);
 
         //begin if double latch is ready
         if (start) begin
-            //do our one bit of math
-            Eout = ((((inTarget - inCenter)**2) < inE) ? ((inTarget - inCenter)**2): inE);
+            //do our squaring
+            
             Q = 1'b1;
         end 
 

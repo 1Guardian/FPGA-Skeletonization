@@ -7,7 +7,6 @@ module Sobels (
   output reg Q,
   output wire signed [15:0] OIx,  
   output wire signed [15:0] OIy  
-
   );
 
   //ram blocks

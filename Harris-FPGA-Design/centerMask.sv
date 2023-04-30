@@ -22,8 +22,8 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   //registers for storing data that will be used by the kernels
   //under consideration, in addition to a register for storing
   //write completion events
-  wire [pixelWidth-1:0] we_blocks [((N*3)-1):0];
-  wire harrisCornerBits [((N*3)-1):0];
+  wire [pixelWidth-1:0] we_blocks [((N*5)-1):0];
+  wire harrisCornerBits [((N*5)-1):0];
   wire [bitSize:0] block_address;
   wire [pixelWidth-1:0] block_data_in;
   wire [pixelWidth-1:0] block_data_out;
@@ -50,7 +50,7 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
   genvar i;
   
   generate
-    for (i=0; i < ((N*3)); i = i + 1) begin : mask_block
+    for (i=0; i < ((N*5)); i = i + 1) begin : mask_block
       kernelRam #(.N(N), .bitSize(bitSize), .pixelWidth(pixelWidth), .identifier(i)) u0 (clk, we, block_address, block_data_in, we_blocks[i], harrisCornerBits[i]);
     end
   endgenerate
@@ -88,8 +88,8 @@ module centerMask #(parameter N=8, bitSize=6, pixelWidth = 8) (clk, we, re, data
           read_counter = read_counter + 1;
 
           //check if we need to update the offset
-          if ((read_counter + 1) % (N*3) == 0) begin
-            offset = offset + (N*3);
+          if ((read_counter + 1) % (N*5) == 0) begin
+            offset = offset + (N*5);
           end
         end
         else begin
