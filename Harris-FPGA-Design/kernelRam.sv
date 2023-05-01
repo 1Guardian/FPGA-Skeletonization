@@ -245,44 +245,140 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
         end
 
         //check input pixels to see if they belong to the neighborhood set
-        if ((pixel_position_or_address == (current_identifier - (N + N + 2))) || 
-            (pixel_position_or_address == (current_identifier - (N + N + 1))) ||
-            (pixel_position_or_address == (current_identifier - (N + N + 0))) || 
-            (pixel_position_or_address == (current_identifier - (N + N - 1))) ||
-            (pixel_position_or_address == (current_identifier - (N + N - 2))) ||
-            (pixel_position_or_address == (current_identifier - (N + 2)))  || 
-            (pixel_position_or_address == (current_identifier - (N + 1))) || 
-            (pixel_position_or_address == (current_identifier - (N + 0))) ||
-            (pixel_position_or_address == (current_identifier - (N - 1))) ||
-            (pixel_position_or_address == (current_identifier - (N - 2))) ||
-            (pixel_position_or_address == (current_identifier - (2))) || 
-            (pixel_position_or_address == (current_identifier - (1))) ||
-            (pixel_position_or_address == (current_identifier - (0))) ||
-            (pixel_position_or_address == (current_identifier + 1))  ||
-            (pixel_position_or_address == (current_identifier + 2)) || 
-            (pixel_position_or_address == (current_identifier + (N - 2))) ||
-            (pixel_position_or_address == (current_identifier + (N - 1))) ||
-            (pixel_position_or_address == (current_identifier + (N - 0))) ||
-            (pixel_position_or_address == (current_identifier + (N + 1))) ||
-            (pixel_position_or_address == (current_identifier + (N + 2))) || 
-            (pixel_position_or_address == (current_identifier + (N + N - 2))) || 
-            (pixel_position_or_address == (current_identifier + (N + N - 1))) || 
-            (pixel_position_or_address == (current_identifier + (N + N))) ||
-            (pixel_position_or_address == (current_identifier + (N + N + 1))) ||
-            (pixel_position_or_address == (current_identifier + (N + N + 2)))) begin
-          ram[currentWrite] = data_in;
+        if ((pixel_position_or_address == (current_identifier - (N + N + 2)))) begin 
+          ram[0] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (N + N + 1))) begin 
+          ram[1] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (N + N + 0))) begin 
+          ram[2] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier - (N + N - 1))) begin 
+          ram[3] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (N + N - 2))) begin 
+          ram[4] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (N + 2)))  begin 
+          ram[5] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier - (N + 1))) begin 
+          ram[6] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier - (N + 0))) begin 
+          ram[7] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (N - 1))) begin 
+          ram[8] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (N - 2))) begin 
+          ram[9] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (2))) begin 
+          ram[10] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier - (1))) begin 
+          ram[11] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier - (0))) begin 
+          ram[12] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + 1))  begin 
+          ram[13] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + 2)) begin 
+          ram[14] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier + (N - 2))) begin 
+          ram[15] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + (N - 1))) begin 
+          ram[16] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + (N - 0))) begin 
+          ram[17] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + (N + 1))) begin 
+          ram[18] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + (N + 2))) begin 
+          ram[19] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier + (N + N - 2))) begin 
+          ram[20] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier + (N + N - 1))) begin 
+          ram[21] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end 
+        if (pixel_position_or_address == (current_identifier + (N + N))) begin 
+          ram[22] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + (N + N + 1))) begin 
+          ram[23] = data_in;
+          stored = data_in;
+          write_counter = write_counter + 1;
+        end
+        if (pixel_position_or_address == (current_identifier + (N + N + 2))) begin
+          ram[24] = data_in;
           stored = data_in;
           write_counter = write_counter + 1;
           currentWrite = currentWrite + 1;
+        end
 
-          if ((pixel_position_or_address == (current_identifier - (1))) ||
-          (pixel_position_or_address == (current_identifier - (0))) ||
-          (pixel_position_or_address == (current_identifier + 1))  ||
-          (pixel_position_or_address == (current_identifier - (N + 0))) ||
-          (pixel_position_or_address == (current_identifier + (N + 0)))) begin
-            largest = data_in >= largest ? data_in : largest;
-            smallest = data_in <= smallest ? data_in : smallest;
-          end
+        if ((pixel_position_or_address == (current_identifier - (1))) ||
+        (pixel_position_or_address == (current_identifier - (0))) ||
+        (pixel_position_or_address == (current_identifier + 1))  ||
+        (pixel_position_or_address == (current_identifier - (N + 0))) ||
+        (pixel_position_or_address == (current_identifier + (N + 0)))) begin
+          largest = data_in >= largest ? data_in : largest;
+          smallest = data_in <= smallest ? data_in : smallest;
         end
 
         //only let harris start when we have all pixels
