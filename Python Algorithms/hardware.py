@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 square = np.zeros((8,8))
-squareInner = np.ones((4,4)) * 255
+squareInner = np.ones((4,4))
 square[2:6, 2:6] = squareInner
 
 image = square
@@ -103,7 +103,7 @@ for x in range(8):
 #normalize
 #Will take N*N cycles again to read (supercycle)
 #store val += Img[x][y] in 64 bit reg and pass to convoluters
-cv2.normalize(harrisMatrix, harrisMatrix, 0, 1, cv2.NORM_MINMAX)
+#cv2.normalize(harrisMatrix, harrisMatrix, 0, 1, cv2.NORM_MINMAX)
 
 #search kernel
 #Will take N*N cycles again to read [dividing by shared 64 bit reg] (supercycle)
