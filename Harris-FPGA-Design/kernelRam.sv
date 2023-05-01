@@ -9,7 +9,7 @@
 //				and then the centerMask collects them and
 //				sends them to the Ram block.
 //***********************************************************
-module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk, we, pixel_position_or_address, data_in, primary_output, harris_bit);
+module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thresh=5000) (clk, we, pixel_position_or_address, data_in, primary_output, harris_bit);
   input clk;
   input we;
   input [bitSize:0] pixel_position_or_address;
@@ -34,6 +34,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   reg harris_bit_read_out;
   reg [7:0] stored;
   reg signed [32:0] R;
+  reg [54:0] storage;
 
   //wires for moravec FFs 
   wire Q11;
@@ -84,6 +85,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   wire [26:0] Ixx;
   wire [26:0] Iyy;
   wire [26:0] Ixy;
+  reg [43:0] point_zero_seven;
 
   //reg(s) dedicated to keeping track of variable pixels
   reg [bitSize+1:0] current_identifier;
@@ -124,6 +126,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     distressed_meta_write_counter = 0;
     currentWrite = 0;
     ram[24] = 0;
+    point_zero_seven = 000000000000000000000000000_00010001111010111;
   end
 
   //define harris modules needed
@@ -396,8 +399,11 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
           if ((largest - smallest) >= 1 && ram[12] != 0) begin
 
             //if we determine it's a border, check to see if it's a corner
+            //R = ((((Ixx << 17) * (Iyy << 17)) - ((Ixy << 17) * (Ixy << 17))) - (point_zero_seven*(((Ixx << 17) + (Iyy << 17))  * ((Ixx << 17) + (Iyy << 17)))));
             R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
-            if (R > 5000) begin
+            storage = Ixx * Ixx;
+            storage = storage[27:4];
+            if (R > thresh) begin
               variable_results[meta_write_counter] = ram[12]; 
               corresponding_harris_bits[meta_write_counter] = 1;
               stored_pixel = ram[12];
@@ -462,8 +468,9 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
               distressed_current_identifier = 0;
 
               //if we determine it's a border, check to see if it's a corner
+              //R = ((((Ixx << 17) * (Iyy << 17)) - ((Ixy << 17) * (Ixy << 17))) - (0.07*(((Ixx << 17) + (Iyy << 17))  * ((Ixx << 17) + (Iyy << 17)))));
               R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
-              if (R > 5000) begin
+              if (R > thresh) begin
                 variable_results[distressed_meta_write_counter] = ram[12]; 
                 corresponding_harris_bits[distressed_meta_write_counter] = 1;
                 stored_pixel = ram[12];
