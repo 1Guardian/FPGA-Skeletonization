@@ -462,7 +462,8 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
               distressed_current_identifier = 0;
 
               //if we determine it's a border, check to see if it's a corner
-              if (1 > 0) begin
+              R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
+              if (R > 5000) begin
                 variable_results[distressed_meta_write_counter] = ram[12]; 
                 corresponding_harris_bits[distressed_meta_write_counter] = 1;
                 stored_pixel = ram[12];
