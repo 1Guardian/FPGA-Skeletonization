@@ -4,7 +4,7 @@
 `include "counter.sv"
 `include "writeController.sv"
 `include "centerMask.sv"
-`include "SobelsOperatorBAD.sv"
+`include "SobelsOperator.sv"
 `include "gaussian.sv"
 
 `timescale 1 us / 10 ps
