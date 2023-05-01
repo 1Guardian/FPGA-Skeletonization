@@ -33,6 +33,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   reg isCorner;
   reg harris_bit_read_out;
   reg [7:0] stored;
+  reg signed [32:0] R;
 
   //wires for moravec FFs 
   wire Q11;
@@ -69,15 +70,15 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
   wire [21:0] sobelIy6;
   wire [21:0] sobelIy7;
   wire [21:0] sobelIy8;
-  wire [21:0] sobelIxy0;
-  wire [21:0] sobelIxy1;
-  wire [21:0] sobelIxy2;
-  wire [21:0] sobelIxy3;
-  wire [21:0] sobelIxy4;
-  wire [21:0] sobelIxy5;
-  wire [21:0] sobelIxy6;
-  wire [21:0] sobelIxy7;
-  wire [21:0] sobelIxy8;
+  wire signed [21:0] sobelIxy0;
+  wire signed [21:0] sobelIxy1;
+  wire signed [21:0] sobelIxy2;
+  wire signed [21:0] sobelIxy3;
+  wire signed [21:0] sobelIxy4;
+  wire signed [21:0] sobelIxy5;
+  wire signed [21:0] sobelIxy6;
+  wire signed [21:0] sobelIxy7;
+  wire signed [21:0] sobelIxy8;
 
   //registers to store Ixx, Iyy, and Ixy
   wire [26:0] Ixx;
@@ -122,6 +123,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
     distressed_smallest = 0;
     distressed_meta_write_counter = 0;
     currentWrite = 0;
+    ram[24] = 0;
   end
 
   //define harris modules needed
@@ -272,8 +274,15 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
           stored = data_in;
           write_counter = write_counter + 1;
           currentWrite = currentWrite + 1;
-          largest = data_in >= largest ? data_in : largest;
-          smallest = data_in <= smallest ? data_in : smallest;
+
+          if ((pixel_position_or_address == (current_identifier - (1))) ||
+          (pixel_position_or_address == (current_identifier - (0))) ||
+          (pixel_position_or_address == (current_identifier + 1))  ||
+          (pixel_position_or_address == (current_identifier - (N + 0))) ||
+          (pixel_position_or_address == (current_identifier + (N + 0)))) begin
+            largest = data_in >= largest ? data_in : largest;
+            smallest = data_in <= smallest ? data_in : smallest;
+          end
         end
 
         //only let harris start when we have all pixels
@@ -285,13 +294,14 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1) (clk,
         
         //check if we should compute out value yet
         //FIXME: REGISTER OF 54 CANNOT BE SET BECAUSE PIXEL VALUE 63 FORCES IT TO ASSUME 0
-        if (pixel_position_or_address > current_identifier + (N + N + 2 + 3) || pixel_position_or_address == ((N*N)-1)) begin
+        if (pixel_position_or_address > current_identifier + (N + N + 2 + 2) || pixel_position_or_address == ((N*N)-1)) begin
           
           //check if the pixel is a border/corner
           if ((largest - smallest) >= 1 && ram[12] != 0) begin
 
             //if we determine it's a border, check to see if it's a corner
-            if (((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy))) > 10) begin
+            R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
+            if (R > 5000) begin
               variable_results[meta_write_counter] = ram[12]; 
               corresponding_harris_bits[meta_write_counter] = 1;
               stored_pixel = ram[12];

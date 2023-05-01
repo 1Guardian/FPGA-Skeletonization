@@ -2,15 +2,15 @@ module Gaussian
 (
   input clk,
   input start,
-  input [26:0] Ix0,
-  input [26:0] Ix1,
-  input [26:0] Ix2,
-  input [26:0] Ix3,
-  input [26:0] Ix4,
-  input [26:0] Ix5,
-  input [26:0] Ix6,
-  input [26:0] Ix7,
-  input [26:0] Ix8,
+  input signed [26:0] Ix0,
+  input signed [26:0] Ix1,
+  input signed [26:0] Ix2,
+  input signed [26:0] Ix3,
+  input signed [26:0] Ix4,
+  input signed [26:0] Ix5,
+  input signed [26:0] Ix6,
+  input signed [26:0] Ix7,
+  input signed [26:0] Ix8,
   output [26:0] finalValue
 );
     
