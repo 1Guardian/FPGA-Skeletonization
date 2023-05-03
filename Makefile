@@ -60,12 +60,13 @@ json-M:
 #make Harris block json files and svgs
 svg-H:
 	netlistsvg -o Block-Diagrams/Harris/mainController.svg Block-Diagrams/Harris/mainController.json
-	netlistsvg -o Block-Diagrams/Harris/centerMask.svg Block-Diagrams/Harris/centerMask.json
+	
 	netlistsvg -o Block-Diagrams/Harris/kernelRam.svg Block-Diagrams/Harris/kernelRam.json
 	netlistsvg -o Block-Diagrams/Harris/design.svg Block-Diagrams/Harris/design.json
 	netlistsvg -o Block-Diagrams/Harris/writeController.svg Block-Diagrams/Harris/writeController.json
 	netlistsvg -o Block-Diagrams/Harris/counter.svg Block-Diagrams/Harris/counter.json
-	netlistsvg -o Block-Diagrams/Harris/Harris-Flip-Flops.svg Block-Diagrams/Harris/Harris-Flip-Flops.json
+	netlistsvg -o Block-Diagrams/Harris/Gaussian.svg Block-Diagrams/Harris/Gaussian.json
+	netlistsvg -o Block-Diagrams/Harris/SobelsOperator.svg Block-Diagrams/Harris/SobelsOperator.json
 	rm Block-Diagrams/Harris/*.json
 
 json-H:
@@ -97,7 +98,7 @@ json-H:
 		-p "read_verilog -sv -formal ./Harris-FPGA-Design/SobelsOperator.sv" \
 		-p "hierarchy -check -top Sobels" \
 		-p "proc" \
-		-p "write_json Block-Diagrams/Harris/Gaussian.json"
+		-p "write_json Block-Diagrams/Harris/SobelsOperator.json" \
 		-p "read_verilog -sv -formal ./Harris-FPGA-Design/gaussian.sv" \
 		-p "hierarchy -check -top Gaussian" \
 		-p "proc" \
