@@ -53,7 +53,7 @@ module tb;
       	$dumpfile("dump.vcd"); $dumpvars;
       
         //read in from image file
-      	$readmemb("image.txt",image);
+      	$readmemb("imaget.txt",image);
       
 
         // Initialize Inputs

@@ -9,7 +9,7 @@
 //				and then the centerMask collects them and
 //				sends them to the Ram block.
 //***********************************************************
-module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thresh=5000) (clk, we, pixel_position_or_address, data_in, primary_output, harris_bit);
+module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thresh=4800) (clk, we, pixel_position_or_address, data_in, primary_output, harris_bit);
   input clk;
   input we;
   input [bitSize:0] pixel_position_or_address;
@@ -459,10 +459,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thres
       //begin reading out process
       else begin
 
-        //reset latch
-        latch = 1;
-
-        //check if we have a pixel in distress
+        //reset latch1
         if (current_identifier > 42 && current_identifier < 46) begin
           distressed_largest = largest;
           distressed_smallest = smallest;
