@@ -2,30 +2,29 @@ module Gaussian
 (
   input clk,
   input start,
-  input signed [26:0] Ix0,
-  input signed [26:0] Ix1,
-  input signed [26:0] Ix2,
-  input signed [26:0] Ix3,
-  input signed [26:0] Ix4,
-  input signed [26:0] Ix5,
-  input signed [26:0] Ix6,
-  input signed [26:0] Ix7,
-  input signed [26:0] Ix8,
-  output [26:0] finalValue
+  input signed [39:0] Ix0,
+  input signed [39:0] Ix1,
+  input signed [39:0] Ix2,
+  input signed [39:0] Ix3,
+  input signed [39:0] Ix4,
+  input signed [39:0] Ix5,
+  input signed [39:0] Ix6,
+  input signed [39:0] Ix7,
+  input signed [39:0] Ix8,
+  output signed [39:0] finalValue
 );
     
-  reg [26:0] sixteenth;
-  reg [26:0] eighth;
-  reg [26:0] fourth;
-  reg [26:0] half;
+  reg signed [39:0] sixteenth;
+  reg signed [39:0] eighth;
+  reg signed [39:0] fourth;
+  reg signed [39:0] half;
 
   reg flip;
 
-  reg [52:0] large_results [8:0];
-  reg [26:0] results [8:0];
-  
-  reg [52:0] res;
-  reg [26:0] finalVal;
+  reg signed [80:0] large_results [8:0];
+  reg signed [39:0] results [8:0];
+
+  reg signed [39:0] finalVal;
   
   initial begin
   // Initialize Inputs
@@ -45,31 +44,31 @@ module Gaussian
 
             //do our one cycle of math
             large_results[0] = (Ix0 << 4) * sixteenth;
-            results[0] = large_results[0][30:4];
+            results[0] = large_results[0][44:4];
 
             large_results[1] = (Ix1 << 4) * eighth;
-            results[1] = large_results[1][30:4];
+            results[1] = large_results[1][44:4];
 
             large_results[2] = (Ix2 << 4) * sixteenth;
-            results[2] = large_results[2][30:4];
+            results[2] = large_results[2][44:4];
 
             large_results[3] = (Ix3 << 4) * eighth;
-            results[3] = large_results[3][30:4];
+            results[3] = large_results[3][44:4];
 
             large_results[4] = (Ix4 << 4) * fourth;
-            results[4] = large_results[4][30:4];
+            results[4] = large_results[4][44:4];
 
             large_results[5] = (Ix5 << 4) * eighth;
-            results[5] = large_results[5][30:4];
+            results[5] = large_results[5][44:4];
 
             large_results[6] = (Ix6 << 4) * sixteenth;
-            results[6] = large_results[6][30:4];
+            results[6] = large_results[6][44:4];
 
             large_results[7] = (Ix7 << 4) * eighth;
-            results[7] = large_results[7][30:4];
+            results[7] = large_results[7][44:4];
 
             large_results[8] = (Ix8 << 4) * sixteenth;
-            results[8] = large_results[8][30:4];
+            results[8] = large_results[8][44:4];
 
             //get final value
             finalVal = results[0] + results[1] + results[2] + results[3] + results[4] + results[5] + results[6] + results[7] + results[8];

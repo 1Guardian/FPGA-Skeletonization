@@ -34,7 +34,13 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thres
   reg harris_bit_read_out;
   reg [7:0] stored;
   reg signed [32:0] R;
-  reg [54:0] storage;
+  reg signed [79:0] check;
+  reg signed [79:0] check_two;
+  reg signed [79:0] storage;
+  reg signed [79:0] storage_two;
+  reg signed [39:0] storage_three;
+  reg signed [39:0] storage_two_final;
+  reg signed [39:0] storage_final;
 
   //wires for moravec FFs 
   wire Q11;
@@ -53,39 +59,39 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thres
   wire Q24;
 
   //output of sobels module
-  wire [21:0] sobelIx0;
-  wire [21:0] sobelIx1;
-  wire [21:0] sobelIx2;
-  wire [21:0] sobelIx3;
-  wire [21:0] sobelIx4;
-  wire [21:0] sobelIx5;
-  wire [21:0] sobelIx6;
-  wire [21:0] sobelIx7;
-  wire [21:0] sobelIx8;
-  wire [21:0] sobelIy0;
-  wire [21:0] sobelIy1;
-  wire [21:0] sobelIy2;
-  wire [21:0] sobelIy3;
-  wire [21:0] sobelIy4;
-  wire [21:0] sobelIy5;
-  wire [21:0] sobelIy6;
-  wire [21:0] sobelIy7;
-  wire [21:0] sobelIy8;
-  wire signed [21:0] sobelIxy0;
-  wire signed [21:0] sobelIxy1;
-  wire signed [21:0] sobelIxy2;
-  wire signed [21:0] sobelIxy3;
-  wire signed [21:0] sobelIxy4;
-  wire signed [21:0] sobelIxy5;
-  wire signed [21:0] sobelIxy6;
-  wire signed [21:0] sobelIxy7;
-  wire signed [21:0] sobelIxy8;
+  wire signed [39:0] sobelIx0;
+  wire signed [39:0] sobelIx1;
+  wire signed [39:0] sobelIx2;
+  wire signed [39:0] sobelIx3;
+  wire signed [39:0] sobelIx4;
+  wire signed [39:0] sobelIx5;
+  wire signed [39:0] sobelIx6;
+  wire signed [39:0] sobelIx7;
+  wire signed [39:0] sobelIx8;
+  wire signed [39:0] sobelIy0;
+  wire signed [39:0] sobelIy1;
+  wire signed [39:0] sobelIy2;
+  wire signed [39:0] sobelIy3;
+  wire signed [39:0] sobelIy4;
+  wire signed [39:0] sobelIy5;
+  wire signed [39:0] sobelIy6;
+  wire signed [39:0] sobelIy7;
+  wire signed [39:0] sobelIy8;
+  wire signed [39:0] sobelIxy0;
+  wire signed [39:0] sobelIxy1;
+  wire signed [39:0] sobelIxy2;
+  wire signed [39:0] sobelIxy3;
+  wire signed [39:0] sobelIxy4;
+  wire signed [39:0] sobelIxy5;
+  wire signed [39:0] sobelIxy6;
+  wire signed [39:0] sobelIxy7;
+  wire signed [39:0] sobelIxy8;
 
   //registers to store Ixx, Iyy, and Ixy
-  wire [26:0] Ixx;
-  wire [26:0] Iyy;
-  wire [26:0] Ixy;
-  reg [43:0] point_zero_seven;
+  wire signed [39:0] Ixx;
+  wire signed [39:0] Iyy;
+  wire signed [39:0] Ixy;
+  reg signed [39:0] point_zero_seven;
 
   //reg(s) dedicated to keeping track of variable pixels
   reg [bitSize+1:0] current_identifier;
@@ -126,7 +132,7 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thres
     distressed_meta_write_counter = 0;
     currentWrite = 0;
     ram[24] = 0;
-    point_zero_seven = 000000000000000000000000000_00010001111010111;
+    point_zero_seven = 40'b0000000000000000000000_00010001111010111;
   end
 
   //define harris modules needed
@@ -399,10 +405,18 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thres
           if ((largest - smallest) >= 1 && ram[12] != 0) begin
 
             //if we determine it's a border, check to see if it's a corner
-            //R = ((((Ixx << 17) * (Iyy << 17)) - ((Ixy << 17) * (Ixy << 17))) - (point_zero_seven*(((Ixx << 17) + (Iyy << 17))  * ((Ixx << 17) + (Iyy << 17)))));
-            R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
-            storage = Ixx * Ixx;
-            storage = storage[27:4];
+            storage = (((Ixx << 14) * (Iyy << 14)) - ((Ixy << 14) * (Ixy << 14))); //80 bits
+            storage_two = (((Ixx << 14) + (Iyy << 14))  * ((Ixx << 14) + (Iyy << 14))); //80 bits
+            storage_three = storage_two[56:16]; // back to 40 bits
+            storage_three = (storage_three << 1);
+            storage_two = point_zero_seven * storage_three; //80 bits
+            storage = (storage << 2);
+            storage_final = storage[69:30]; // back to 40 bits
+            storage_two_final = storage_two[69:30]; // back to 40 bits
+            storage_three = storage_final - storage_two_final;
+
+            //R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
+            R = storage_final - storage_two_final;
             if (R > thresh) begin
               variable_results[meta_write_counter] = ram[12]; 
               corresponding_harris_bits[meta_write_counter] = 1;
@@ -468,8 +482,18 @@ module kernelRam #(parameter N=8, bitSize=6, pixelWidth = 8, identifier=1, thres
               distressed_current_identifier = 0;
 
               //if we determine it's a border, check to see if it's a corner
-              //R = ((((Ixx << 17) * (Iyy << 17)) - ((Ixy << 17) * (Ixy << 17))) - (0.07*(((Ixx << 17) + (Iyy << 17))  * ((Ixx << 17) + (Iyy << 17)))));
-              R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
+              storage = (((Ixx << 14) * (Iyy << 14)) - ((Ixy << 14) * (Ixy << 14))); //80 bits
+              storage_two = (((Ixx << 14) + (Iyy << 14))  * ((Ixx << 14) + (Iyy << 14))); //80 bits
+              storage_three = storage_two[56:16]; // back to 40 bits
+              storage_three = (storage_three << 1);
+              storage_two = point_zero_seven * storage_three; //80 bits
+              storage = (storage << 2);
+              storage_final = storage[69:30]; // back to 40 bits
+              storage_two_final = storage_two[69:30]; // back to 40 bits
+              storage_three = storage_final - storage_two_final;
+
+              //R = ((Ixx * Iyy) - (Ixy * Ixy)) - (0.07*((Ixx + Iyy)  * (Ixx + Iyy)));
+              R = storage_final - storage_two_final;
               if (R > thresh) begin
                 variable_results[distressed_meta_write_counter] = ram[12]; 
                 corresponding_harris_bits[distressed_meta_write_counter] = 1;
