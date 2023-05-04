@@ -1,0 +1,426 @@
+{
+  "creator": "Yosys 0.23 (git sha1 7ce5011c24b)",
+  "modules": {
+    "counter": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "top": "00000000000000000000000000000001",
+        "src": "./Moravec-FPGA-Design/counter.sv:7.1-46.10"
+      },
+      "parameter_default_values": {
+        "N": "00000000000000000000000000001000",
+        "bitSize": "00000000000000000000000000000110"
+      },
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "inc": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "current_count": {
+          "direction": "output",
+          "bits": [ 4, 5, 6, 7, 8, 9, 10 ]
+        }
+      },
+      "cells": {
+        "$add$./Moravec-FPGA-Design/counter.sv:28$172202": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000111",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000100000",
+            "Y_WIDTH": "00000000000000000000000000100000"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:28.21-28.32"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10 ],
+            "B": [ "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ],
+            "Y": [ 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42 ]
+          }
+        },
+        "$eq$./Moravec-FPGA-Design/counter.sv:35$172203": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000111",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000111",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:35.11-35.27"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 43, 44, 45, 46, 47, 48, 49 ],
+            "B": [ "0", "0", "0", "0", "0", "0", "1" ],
+            "Y": [ 50 ]
+          }
+        },
+        "$not$./Moravec-FPGA-Design/counter.sv:39$172204": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:39.12-39.17"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 51 ],
+            "Y": [ 52 ]
+          }
+        },
+        "$procdff$172221": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:23.3-41.6"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 52 ],
+            "Q": [ 51 ]
+          }
+        },
+        "$procdff$172222": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000111"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:23.3-41.6"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 53, 54, 55, 56, 57, 58, 59 ],
+            "Q": [ 4, 5, 6, 7, 8, 9, 10 ]
+          }
+        },
+        "$procmux$172208": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000111"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/counter.sv:35.11-35.27|./Moravec-FPGA-Design/counter.sv:35.7-36.21"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 43, 44, 45, 46, 47, 48, 49 ],
+            "B": [ "0", "0", "0", "0", "0", "0", "0" ],
+            "S": [ 50 ],
+            "Y": [ 60, 61, 62, 63, 64, 65, 66 ]
+          }
+        },
+        "$procmux$172210": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000111"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/counter.sv:25.9-25.13|./Moravec-FPGA-Design/counter.sv:25.5-37.8"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x", "x" ],
+            "B": [ 60, 61, 62, 63, 64, 65, 66 ],
+            "S": [ 51 ],
+            "Y": [ 67, 68, 69, 70, 71, 72, 73 ]
+          }
+        },
+        "$procmux$172214": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000111"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/counter.sv:27.11-27.14|./Moravec-FPGA-Design/counter.sv:27.7-33.10"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "0", "0", "0", "0" ],
+            "B": [ 11, 12, 13, 14, 15, 16, 17 ],
+            "S": [ 3 ],
+            "Y": [ 74, 75, 76, 77, 78, 79, 80 ]
+          }
+        },
+        "$procmux$172216": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000111"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/counter.sv:25.9-25.13|./Moravec-FPGA-Design/counter.sv:25.5-37.8"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x", "x" ],
+            "B": [ 74, 75, 76, 77, 78, 79, 80 ],
+            "S": [ 51 ],
+            "Y": [ 43, 44, 45, 46, 47, 48, 49 ]
+          }
+        },
+        "$procmux$172219": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000111"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/counter.sv:25.9-25.13|./Moravec-FPGA-Design/counter.sv:25.5-37.8"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10 ],
+            "B": [ 67, 68, 69, 70, 71, 72, 73 ],
+            "S": [ 51 ],
+            "Y": [ 53, 54, 55, 56, 57, 58, 59 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\address[6:0]": {
+          "hide_name": 1,
+          "bits": [ 53, 54, 55, 56, 57, 58, 59 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:23.3-41.6"
+          }
+        },
+        "$0\\flip[0:0]": {
+          "hide_name": 1,
+          "bits": [ 52 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:23.3-41.6"
+          }
+        },
+        "$1\\address[6:0]": {
+          "hide_name": 1,
+          "bits": [ 53, 54, 55, 56, 57, 58, 59 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:23.3-41.6"
+          }
+        },
+        "$1\\flip[0:0]": {
+          "hide_name": 1,
+          "bits": [ "1" ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:0.0-0.0"
+          }
+        },
+        "$2\\address[6:0]": {
+          "hide_name": 1,
+          "bits": [ 43, 44, 45, 46, 47, 48, 49 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:23.3-41.6"
+          }
+        },
+        "$3\\address[6:0]": {
+          "hide_name": 1,
+          "bits": [ 67, 68, 69, 70, 71, 72, 73 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:23.3-41.6"
+          }
+        },
+        "$4\\address[6:0]": {
+          "hide_name": 1,
+          "bits": [ "0", "0", "0", "0", "0", "0", "0" ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:0.0-0.0"
+          }
+        },
+        "$add$./Moravec-FPGA-Design/counter.sv:28$172202_Y": {
+          "hide_name": 1,
+          "bits": [ 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:28.21-28.32"
+          }
+        },
+        "$eq$./Moravec-FPGA-Design/counter.sv:35$172203_Y": {
+          "hide_name": 1,
+          "bits": [ 50 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:35.11-35.27"
+          }
+        },
+        "$not$./Moravec-FPGA-Design/counter.sv:39$172204_Y": {
+          "hide_name": 1,
+          "bits": [ 52 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:39.12-39.17"
+          }
+        },
+        "$procmux$172208_Y": {
+          "hide_name": 1,
+          "bits": [ 60, 61, 62, 63, 64, 65, 66 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172209_CMP": {
+          "hide_name": 1,
+          "bits": [ 50 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172210_Y": {
+          "hide_name": 1,
+          "bits": [ 67, 68, 69, 70, 71, 72, 73 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172211_CMP": {
+          "hide_name": 1,
+          "bits": [ 51 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172214_Y": {
+          "hide_name": 1,
+          "bits": [ 74, 75, 76, 77, 78, 79, 80 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172215_CMP": {
+          "hide_name": 1,
+          "bits": [ 3 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172216_Y": {
+          "hide_name": 1,
+          "bits": [ 43, 44, 45, 46, 47, 48, 49 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172217_CMP": {
+          "hide_name": 1,
+          "bits": [ 51 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172219_Y": {
+          "hide_name": 1,
+          "bits": [ 53, 54, 55, 56, 57, 58, 59 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172220_CMP": {
+          "hide_name": 1,
+          "bits": [ 51 ],
+          "attributes": {
+          }
+        },
+        "address": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10 ],
+          "attributes": {
+            "init": "0000000",
+            "src": "./Moravec-FPGA-Design/counter.sv:14.19-14.26"
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:8.9-8.12"
+          }
+        },
+        "current_count": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:10.22-10.35"
+          }
+        },
+        "flip": {
+          "hide_name": 0,
+          "bits": [ 51 ],
+          "attributes": {
+            "init": "1",
+            "src": "./Moravec-FPGA-Design/counter.sv:11.7-11.11"
+          }
+        },
+        "inc": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/counter.sv:9.9-9.12"
+          }
+        }
+      }
+    }
+  }
+}

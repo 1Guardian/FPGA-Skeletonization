@@ -1,0 +1,363 @@
+{
+  "creator": "Yosys 0.23 (git sha1 7ce5011c24b)",
+  "modules": {
+    "writeController": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "top": "00000000000000000000000000000001",
+        "src": "./Moravec-FPGA-Design/writeController.sv:13.1-46.10"
+      },
+      "parameter_default_values": {
+        "N": "00000000000000000000000000001000",
+        "bitSize": "00000000000000000000000000000110",
+        "pixelWidth": "00000000000000000000000000001000"
+      },
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "we": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "we_two": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "data_0": {
+          "direction": "input",
+          "bits": [ 5, 6, 7, 8, 9, 10, 11, 12 ]
+        },
+        "data_1": {
+          "direction": "input",
+          "bits": [ 13, 14, 15, 16, 17, 18, 19, 20 ]
+        },
+        "res": {
+          "direction": "output",
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ]
+        }
+      },
+      "cells": {
+        "$not$./Moravec-FPGA-Design/writeController.sv:40$172185": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:40.12-40.17"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 29 ],
+            "Y": [ 30 ]
+          }
+        },
+        "$procdff$172199": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:32.3-41.6"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 30 ],
+            "Q": [ 29 ]
+          }
+        },
+        "$procdff$172200": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:32.3-41.6"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 31, 32, 33, 34, 35, 36, 37, 38 ],
+            "Q": [ 21, 22, 23, 24, 25, 26, 27, 28 ]
+          }
+        },
+        "$procmux$172188": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/writeController.sv:37.11-37.17|./Moravec-FPGA-Design/writeController.sv:37.7-38.25"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 39, 40, 41, 42, 43, 44, 45, 46 ],
+            "B": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+            "S": [ 4 ],
+            "Y": [ 31, 32, 33, 34, 35, 36, 37, 38 ]
+          }
+        },
+        "$procmux$172192": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/writeController.sv:34.11-34.13|./Moravec-FPGA-Design/writeController.sv:34.7-35.25"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+            "B": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+            "S": [ 3 ],
+            "Y": [ 47, 48, 49, 50, 51, 52, 53, 54 ]
+          }
+        },
+        "$procmux$172194": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/writeController.sv:33.9-33.13|./Moravec-FPGA-Design/writeController.sv:33.5-35.25"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x", "x", "x" ],
+            "B": [ 47, 48, 49, 50, 51, 52, 53, 54 ],
+            "S": [ 29 ],
+            "Y": [ 55, 56, 57, 58, 59, 60, 61, 62 ]
+          }
+        },
+        "$procmux$172197": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "./Moravec-FPGA-Design/writeController.sv:33.9-33.13|./Moravec-FPGA-Design/writeController.sv:33.5-35.25"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+            "B": [ 55, 56, 57, 58, 59, 60, 61, 62 ],
+            "S": [ 29 ],
+            "Y": [ 39, 40, 41, 42, 43, 44, 45, 46 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\flip[0:0]": {
+          "hide_name": 1,
+          "bits": [ 30 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:32.3-41.6"
+          }
+        },
+        "$0\\stored[7:0]": {
+          "hide_name": 1,
+          "bits": [ 31, 32, 33, 34, 35, 36, 37, 38 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:32.3-41.6"
+          }
+        },
+        "$1\\flip[0:0]": {
+          "hide_name": 1,
+          "bits": [ "1" ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:0.0-0.0"
+          }
+        },
+        "$1\\stored[7:0]": {
+          "hide_name": 1,
+          "bits": [ 39, 40, 41, 42, 43, 44, 45, 46 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:32.3-41.6"
+          }
+        },
+        "$2\\stored[7:0]": {
+          "hide_name": 1,
+          "bits": [ 55, 56, 57, 58, 59, 60, 61, 62 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:32.3-41.6"
+          }
+        },
+        "$3\\stored[7:0]": {
+          "hide_name": 1,
+          "bits": [ 31, 32, 33, 34, 35, 36, 37, 38 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:32.3-41.6"
+          }
+        },
+        "$4\\stored[7:0]": {
+          "hide_name": 1,
+          "bits": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:0.0-0.0"
+          }
+        },
+        "$not$./Moravec-FPGA-Design/writeController.sv:40$172185_Y": {
+          "hide_name": 1,
+          "bits": [ 30 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:40.12-40.17"
+          }
+        },
+        "$procmux$172188_Y": {
+          "hide_name": 1,
+          "bits": [ 31, 32, 33, 34, 35, 36, 37, 38 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172189_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172192_Y": {
+          "hide_name": 1,
+          "bits": [ 47, 48, 49, 50, 51, 52, 53, 54 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172193_CMP": {
+          "hide_name": 1,
+          "bits": [ 3 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172194_Y": {
+          "hide_name": 1,
+          "bits": [ 55, 56, 57, 58, 59, 60, 61, 62 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172195_CMP": {
+          "hide_name": 1,
+          "bits": [ 29 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172197_Y": {
+          "hide_name": 1,
+          "bits": [ 39, 40, 41, 42, 43, 44, 45, 46 ],
+          "attributes": {
+          }
+        },
+        "$procmux$172198_CMP": {
+          "hide_name": 1,
+          "bits": [ 29 ],
+          "attributes": {
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:14.9-14.12"
+          }
+        },
+        "data_0": {
+          "hide_name": 0,
+          "bits": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:17.26-17.32"
+          }
+        },
+        "data_1": {
+          "hide_name": 0,
+          "bits": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:18.26-18.32"
+          }
+        },
+        "flip": {
+          "hide_name": 0,
+          "bits": [ 29 ],
+          "attributes": {
+            "init": "1",
+            "src": "./Moravec-FPGA-Design/writeController.sv:23.7-23.11"
+          }
+        },
+        "res": {
+          "hide_name": 0,
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:19.27-19.30"
+          }
+        },
+        "stored": {
+          "hide_name": 0,
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+          "attributes": {
+            "init": "00000000",
+            "src": "./Moravec-FPGA-Design/writeController.sv:22.24-22.30"
+          }
+        },
+        "we": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:15.9-15.11"
+          }
+        },
+        "we_two": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "./Moravec-FPGA-Design/writeController.sv:16.9-16.15"
+          }
+        }
+      }
+    }
+  }
+}
