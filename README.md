@@ -8,8 +8,11 @@ University of Missouri St Louis: CS 6420
 The provided files are split into 4 main sections:
 
 The Harris-FPGA-Design has the design for the FPGA implementing skeletonization via the Harris corner detection and thinning written in system verilog
+
 The Moravec-FPGA-Design has the design for the FPGA implementing skeletonization via Moravec's corner detection and thinning written in system verilog
+
 The Python Algorithms contain non-production blueprints to how I learned and mapped out the algorithms I implemented in verilog
+
 The Block Diagrams contain the output for both designs from yosys, showing successful synthesis as well as rough svg mapping of each design
 
 # Requirements for building
