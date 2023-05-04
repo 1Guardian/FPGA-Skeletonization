@@ -19,94 +19,124 @@
   .splitjoinBody {
     fill:#000;
   }</style>
-  <g s:type="lt" transform="translate(662.3333333333334,487.5)" s:width="25" s:height="25" id="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172235">
+  <g s:type="lt" transform="translate(662.3333333333334,487.5)" s:width="25" s:height="25" id="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172226">
     <s:alias val="$lt"/>
-    <circle r="12.5" cx="12.5" cy="12.5" class="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172235"/>
-    <line x1="7.5" x2="17.5" y1="12.5" y2="7.5" class="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172235"/>
-    <line x1="7.5" x2="17.5" y1="12.5" y2="17.5" class="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172235"/>
+    <circle r="12.5" cx="12.5" cy="12.5" class="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172226"/>
+    <line x1="7.5" x2="17.5" y1="12.5" y2="7.5" class="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172226"/>
+    <line x1="7.5" x2="17.5" y1="12.5" y2="17.5" class="cell_$lt$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172226"/>
     <g s:x="3" s:y="5" s:pid="A"/>
     <g s:x="3" s:y="20" s:pid="B"/>
     <g s:x="25" s:y="12.5" s:pid="Y"/>
   </g>
-  <g s:type="not" transform="translate(940,575)" s:width="30" s:height="20" id="cell_$not$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:34$172239">
+  <g s:type="not" transform="translate(940,575)" s:width="30" s:height="20" id="cell_$not$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:34$172230">
     <s:alias val="$_NOT_"/>
     <s:alias val="$not"/>
     <s:alias val="$logic_not"/>
-    <path d="M0,0 L0,20 L20,10 Z" class="cell_$not$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:34$172239"/>
-    <circle cx="23" cy="10" r="3" class="cell_$not$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:34$172239"/>
+    <path d="M0,0 L0,20 L20,10 Z" class="cell_$not$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:34$172230"/>
+    <circle cx="23" cy="10" r="3" class="cell_$not$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:34$172230"/>
     <g s:x="0" s:y="10" s:pid="A"/>
     <g s:x="25" s:y="10" s:pid="Y"/>
   </g>
-  <g s:type="generic" transform="translate(167,482)" s:width="30" s:height="40" id="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234">
-    <text x="15" y="-4" class="nodelabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234" s:attribute="ref">$pow</text>
-    <rect width="30" height="40" s:generic="body" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234"/>
-    <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234~A">
-      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234">A</text>
+  <g s:type="generic" transform="translate(167,482)" s:width="30" s:height="40" id="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225">
+    <text x="15" y="-4" class="nodelabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225" s:attribute="ref">$pow</text>
+    <rect width="30" height="40" s:generic="body" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225"/>
+    <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225~A">
+      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225">A</text>
     </g>
-    <g transform="translate(0,30)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234~B">
-      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234">B</text>
+    <g transform="translate(0,30)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225~B">
+      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225">B</text>
     </g>
-    <g transform="translate(30,10)" s:x="30" s:y="10" s:pid="out0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234~Y">
-      <text x="5" y="-4" style="fill:#000; stroke:none" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172234">Y</text>
-    </g>
-  </g>
-  <g s:type="generic" transform="translate(557,365.5)" s:width="30" s:height="40" id="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237">
-    <text x="15" y="-4" class="nodelabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237" s:attribute="ref">$pow</text>
-    <rect width="30" height="40" s:generic="body" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237"/>
-    <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237~A">
-      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237">A</text>
-    </g>
-    <g transform="translate(0,30)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237~B">
-      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237">B</text>
-    </g>
-    <g transform="translate(30,10)" s:x="30" s:y="10" s:pid="out0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237~Y">
-      <text x="5" y="-4" style="fill:#000; stroke:none" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172237">Y</text>
+    <g transform="translate(30,10)" s:x="30" s:y="10" s:pid="out0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225~Y">
+      <text x="5" y="-4" style="fill:#000; stroke:none" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172225">Y</text>
     </g>
   </g>
-  <g s:type="dff" transform="translate(1195,790)" s:width="30" s:height="40" id="cell_$procdff$172259">
+  <g s:type="generic" transform="translate(557,365.5)" s:width="30" s:height="40" id="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228">
+    <text x="15" y="-4" class="nodelabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228" s:attribute="ref">$pow</text>
+    <rect width="30" height="40" s:generic="body" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228"/>
+    <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228~A">
+      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228">A</text>
+    </g>
+    <g transform="translate(0,30)" s:x="0" s:y="10" s:pid="in0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228~B">
+      <text x="-3" y="-4" class="inputPortLabel cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228">B</text>
+    </g>
+    <g transform="translate(30,10)" s:x="30" s:y="10" s:pid="out0" id="port_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228~Y">
+      <text x="5" y="-4" style="fill:#000; stroke:none" class="cell_$pow$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172228">Y</text>
+    </g>
+  </g>
+  <g s:type="dff" transform="translate(1195,790)" s:width="30" s:height="40" id="cell_$procdff$172250">
     <s:alias val="$dff"/>
     <s:alias val="$_DFF_"/>
     <s:alias val="$_DFF_P_"/>
-    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172259"/>
-    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172259"/>
+    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172250"/>
+    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172250"/>
     <g s:x="30" s:y="10" s:pid="Q"/>
     <g s:x="0" s:y="30" s:pid="CLK"/>
     <g s:x="0" s:y="30" s:pid="C"/>
     <g s:x="0" s:y="10" s:pid="D"/>
   </g>
-  <g s:type="dff" transform="translate(1020,620)" s:width="30" s:height="40" id="cell_$procdff$172260">
+  <g s:type="dff" transform="translate(1020,620)" s:width="30" s:height="40" id="cell_$procdff$172251">
     <s:alias val="$dff"/>
     <s:alias val="$_DFF_"/>
     <s:alias val="$_DFF_P_"/>
-    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172260"/>
-    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172260"/>
+    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172251"/>
+    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172251"/>
     <g s:x="30" s:y="10" s:pid="Q"/>
     <g s:x="0" s:y="30" s:pid="CLK"/>
     <g s:x="0" s:y="30" s:pid="C"/>
     <g s:x="0" s:y="10" s:pid="D"/>
   </g>
-  <g s:type="dff" transform="translate(1195,579)" s:width="30" s:height="40" id="cell_$procdff$172261">
+  <g s:type="dff" transform="translate(1195,579)" s:width="30" s:height="40" id="cell_$procdff$172252">
     <s:alias val="$dff"/>
     <s:alias val="$_DFF_"/>
     <s:alias val="$_DFF_P_"/>
-    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172261"/>
-    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172261"/>
+    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172252"/>
+    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172252"/>
     <g s:x="30" s:y="10" s:pid="Q"/>
     <g s:x="0" s:y="30" s:pid="CLK"/>
     <g s:x="0" s:y="30" s:pid="C"/>
     <g s:x="0" s:y="10" s:pid="D"/>
   </g>
-  <g s:type="mux" transform="translate(1023.3333333333334,750)" s:width="20" s:height="40" id="cell_$procmux$172243">
+  <g s:type="mux" transform="translate(1023.3333333333334,750)" s:width="20" s:height="40" id="cell_$procmux$172234">
     <s:alias val="$pmux"/>
     <s:alias val="$mux"/>
     <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172243"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172234"/>
     <g s:x="0" s:y="10" s:pid="A"/>
     <g s:x="0" s:y="30" s:pid="B"/>
     <g s:x="10" s:y="35" s:pid="S"/>
     <g s:x="20" s:y="20" s:pid="Y"/>
   </g>
-  <g s:type="mux" transform="translate(1085,740)" s:width="20" s:height="40" id="cell_$procmux$172245">
+  <g s:type="mux" transform="translate(1085,740)" s:width="20" s:height="40" id="cell_$procmux$172236">
+    <s:alias val="$pmux"/>
+    <s:alias val="$mux"/>
+    <s:alias val="$_MUX_"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172236"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+    <g s:x="0" s:y="30" s:pid="B"/>
+    <g s:x="10" s:y="35" s:pid="S"/>
+    <g s:x="20" s:y="20" s:pid="Y"/>
+  </g>
+  <g s:type="mux" transform="translate(1026.6666666666665,407)" s:width="20" s:height="40" id="cell_$procmux$172240">
+    <s:alias val="$pmux"/>
+    <s:alias val="$mux"/>
+    <s:alias val="$_MUX_"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172240"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+    <g s:x="0" s:y="30" s:pid="B"/>
+    <g s:x="10" s:y="35" s:pid="S"/>
+    <g s:x="20" s:y="20" s:pid="Y"/>
+  </g>
+  <g s:type="mux" transform="translate(1085,397)" s:width="20" s:height="40" id="cell_$procmux$172242">
+    <s:alias val="$pmux"/>
+    <s:alias val="$mux"/>
+    <s:alias val="$_MUX_"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172242"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+    <g s:x="0" s:y="30" s:pid="B"/>
+    <g s:x="10" s:y="35" s:pid="S"/>
+    <g s:x="20" s:y="20" s:pid="Y"/>
+  </g>
+  <g s:type="mux" transform="translate(1140,387)" s:width="20" s:height="40" id="cell_$procmux$172245">
     <s:alias val="$pmux"/>
     <s:alias val="$mux"/>
     <s:alias val="$_MUX_"/>
@@ -116,67 +146,37 @@
     <g s:x="10" s:y="35" s:pid="S"/>
     <g s:x="20" s:y="20" s:pid="Y"/>
   </g>
-  <g s:type="mux" transform="translate(1026.6666666666665,407)" s:width="20" s:height="40" id="cell_$procmux$172249">
+  <g s:type="mux" transform="translate(1140,730)" s:width="20" s:height="40" id="cell_$procmux$172248">
     <s:alias val="$pmux"/>
     <s:alias val="$mux"/>
     <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172249"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172248"/>
     <g s:x="0" s:y="10" s:pid="A"/>
     <g s:x="0" s:y="30" s:pid="B"/>
     <g s:x="10" s:y="35" s:pid="S"/>
     <g s:x="20" s:y="20" s:pid="Y"/>
   </g>
-  <g s:type="mux" transform="translate(1085,397)" s:width="20" s:height="40" id="cell_$procmux$172251">
-    <s:alias val="$pmux"/>
-    <s:alias val="$mux"/>
-    <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172251"/>
-    <g s:x="0" s:y="10" s:pid="A"/>
-    <g s:x="0" s:y="30" s:pid="B"/>
-    <g s:x="10" s:y="35" s:pid="S"/>
-    <g s:x="20" s:y="20" s:pid="Y"/>
-  </g>
-  <g s:type="mux" transform="translate(1140,387)" s:width="20" s:height="40" id="cell_$procmux$172254">
-    <s:alias val="$pmux"/>
-    <s:alias val="$mux"/>
-    <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172254"/>
-    <g s:x="0" s:y="10" s:pid="A"/>
-    <g s:x="0" s:y="30" s:pid="B"/>
-    <g s:x="10" s:y="35" s:pid="S"/>
-    <g s:x="20" s:y="20" s:pid="Y"/>
-  </g>
-  <g s:type="mux" transform="translate(1140,730)" s:width="20" s:height="40" id="cell_$procmux$172257">
-    <s:alias val="$pmux"/>
-    <s:alias val="$mux"/>
-    <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172257"/>
-    <g s:x="0" s:y="10" s:pid="A"/>
-    <g s:x="0" s:y="30" s:pid="B"/>
-    <g s:x="10" s:y="35" s:pid="S"/>
-    <g s:x="20" s:y="20" s:pid="Y"/>
-  </g>
-  <g s:type="sub" transform="translate(96.66666666666667,432.5)" s:width="25" s:height="25" id="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172233">
+  <g s:type="sub" transform="translate(96.66666666666667,432.5)" s:width="25" s:height="25" id="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172224">
     <s:alias val="$sub"/>
-    <circle r="12.5" cx="12.5" cy="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172233"/>
-    <line x1="7.5" x2="17.5" y1="12.5" y2="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172233"/>
+    <circle r="12.5" cx="12.5" cy="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172224"/>
+    <line x1="7.5" x2="17.5" y1="12.5" y2="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172224"/>
     <g s:x="3" s:y="5" s:pid="A"/>
     <g s:x="3" s:y="20" s:pid="B"/>
     <g s:x="25" s:y="12.5" s:pid="Y"/>
   </g>
-  <g s:type="sub" transform="translate(272.3333333333333,361)" s:width="25" s:height="25" id="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172236">
+  <g s:type="sub" transform="translate(272.3333333333333,361)" s:width="25" s:height="25" id="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172227">
     <s:alias val="$sub"/>
-    <circle r="12.5" cx="12.5" cy="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172236"/>
-    <line x1="7.5" x2="17.5" y1="12.5" y2="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172236"/>
+    <circle r="12.5" cx="12.5" cy="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172227"/>
+    <line x1="7.5" x2="17.5" y1="12.5" y2="12.5" class="cell_$sub$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172227"/>
     <g s:x="3" s:y="5" s:pid="A"/>
     <g s:x="3" s:y="20" s:pid="B"/>
     <g s:x="25" s:y="12.5" s:pid="Y"/>
   </g>
-  <g s:type="mux" transform="translate(943.3333333333334,417)" s:width="20" s:height="40" id="cell_$ternary$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172238">
+  <g s:type="mux" transform="translate(943.3333333333334,417)" s:width="20" s:height="40" id="cell_$ternary$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172229">
     <s:alias val="$pmux"/>
     <s:alias val="$mux"/>
     <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$ternary$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172238"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$ternary$./Moravec-FPGA-Design/Moravec-Flip-Flops.sv:24$172229"/>
     <g s:x="0" s:y="10" s:pid="A"/>
     <g s:x="0" s:y="30" s:pid="B"/>
     <g s:x="10" s:y="35" s:pid="S"/>

@@ -19,72 +19,72 @@
   .splitjoinBody {
     fill:#000;
   }</style>
-  <g s:type="not" transform="translate(32,183)" s:width="30" s:height="20" id="cell_$not$./Moravec-FPGA-Design/writeController.sv:40$172194">
+  <g s:type="not" transform="translate(32,183)" s:width="30" s:height="20" id="cell_$not$./Moravec-FPGA-Design/writeController.sv:40$172185">
     <s:alias val="$_NOT_"/>
     <s:alias val="$not"/>
     <s:alias val="$logic_not"/>
-    <path d="M0,0 L0,20 L20,10 Z" class="cell_$not$./Moravec-FPGA-Design/writeController.sv:40$172194"/>
-    <circle cx="23" cy="10" r="3" class="cell_$not$./Moravec-FPGA-Design/writeController.sv:40$172194"/>
+    <path d="M0,0 L0,20 L20,10 Z" class="cell_$not$./Moravec-FPGA-Design/writeController.sv:40$172185"/>
+    <circle cx="23" cy="10" r="3" class="cell_$not$./Moravec-FPGA-Design/writeController.sv:40$172185"/>
     <g s:x="0" s:y="10" s:pid="A"/>
     <g s:x="25" s:y="10" s:pid="Y"/>
   </g>
-  <g s:type="dff" transform="translate(103,183)" s:width="30" s:height="40" id="cell_$procdff$172208">
+  <g s:type="dff" transform="translate(103,183)" s:width="30" s:height="40" id="cell_$procdff$172199">
     <s:alias val="$dff"/>
     <s:alias val="$_DFF_"/>
     <s:alias val="$_DFF_P_"/>
-    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172208"/>
-    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172208"/>
+    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172199"/>
+    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172199"/>
     <g s:x="30" s:y="10" s:pid="Q"/>
     <g s:x="0" s:y="30" s:pid="CLK"/>
     <g s:x="0" s:y="30" s:pid="C"/>
     <g s:x="0" s:y="10" s:pid="D"/>
   </g>
-  <g s:type="dff" transform="translate(349,43)" s:width="30" s:height="40" id="cell_$procdff$172209">
+  <g s:type="dff" transform="translate(349,43)" s:width="30" s:height="40" id="cell_$procdff$172200">
     <s:alias val="$dff"/>
     <s:alias val="$_DFF_"/>
     <s:alias val="$_DFF_P_"/>
-    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172209"/>
-    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172209"/>
+    <rect width="30" height="40" x="0" y="0" class="cell_$procdff$172200"/>
+    <path d="M0,35 L5,30 L0,25" class="cell_$procdff$172200"/>
     <g s:x="30" s:y="10" s:pid="Q"/>
     <g s:x="0" s:y="30" s:pid="CLK"/>
     <g s:x="0" s:y="30" s:pid="C"/>
     <g s:x="0" s:y="10" s:pid="D"/>
   </g>
-  <g s:type="mux" transform="translate(294,33)" s:width="20" s:height="40" id="cell_$procmux$172197">
+  <g s:type="mux" transform="translate(294,33)" s:width="20" s:height="40" id="cell_$procmux$172188">
+    <s:alias val="$pmux"/>
+    <s:alias val="$mux"/>
+    <s:alias val="$_MUX_"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172188"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+    <g s:x="0" s:y="30" s:pid="B"/>
+    <g s:x="10" s:y="35" s:pid="S"/>
+    <g s:x="20" s:y="20" s:pid="Y"/>
+  </g>
+  <g s:type="mux" transform="translate(109.66666666666667,43)" s:width="20" s:height="40" id="cell_$procmux$172192">
+    <s:alias val="$pmux"/>
+    <s:alias val="$mux"/>
+    <s:alias val="$_MUX_"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172192"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+    <g s:x="0" s:y="30" s:pid="B"/>
+    <g s:x="10" s:y="35" s:pid="S"/>
+    <g s:x="20" s:y="20" s:pid="Y"/>
+  </g>
+  <g s:type="mux" transform="translate(168,33)" s:width="20" s:height="40" id="cell_$procmux$172194">
+    <s:alias val="$pmux"/>
+    <s:alias val="$mux"/>
+    <s:alias val="$_MUX_"/>
+    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172194"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+    <g s:x="0" s:y="30" s:pid="B"/>
+    <g s:x="10" s:y="35" s:pid="S"/>
+    <g s:x="20" s:y="20" s:pid="Y"/>
+  </g>
+  <g s:type="mux" transform="translate(231.66666666666666,23)" s:width="20" s:height="40" id="cell_$procmux$172197">
     <s:alias val="$pmux"/>
     <s:alias val="$mux"/>
     <s:alias val="$_MUX_"/>
     <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172197"/>
-    <g s:x="0" s:y="10" s:pid="A"/>
-    <g s:x="0" s:y="30" s:pid="B"/>
-    <g s:x="10" s:y="35" s:pid="S"/>
-    <g s:x="20" s:y="20" s:pid="Y"/>
-  </g>
-  <g s:type="mux" transform="translate(109.66666666666667,43)" s:width="20" s:height="40" id="cell_$procmux$172201">
-    <s:alias val="$pmux"/>
-    <s:alias val="$mux"/>
-    <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172201"/>
-    <g s:x="0" s:y="10" s:pid="A"/>
-    <g s:x="0" s:y="30" s:pid="B"/>
-    <g s:x="10" s:y="35" s:pid="S"/>
-    <g s:x="20" s:y="20" s:pid="Y"/>
-  </g>
-  <g s:type="mux" transform="translate(168,33)" s:width="20" s:height="40" id="cell_$procmux$172203">
-    <s:alias val="$pmux"/>
-    <s:alias val="$mux"/>
-    <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172203"/>
-    <g s:x="0" s:y="10" s:pid="A"/>
-    <g s:x="0" s:y="30" s:pid="B"/>
-    <g s:x="10" s:y="35" s:pid="S"/>
-    <g s:x="20" s:y="20" s:pid="Y"/>
-  </g>
-  <g s:type="mux" transform="translate(231.66666666666666,23)" s:width="20" s:height="40" id="cell_$procmux$172206">
-    <s:alias val="$pmux"/>
-    <s:alias val="$mux"/>
-    <s:alias val="$_MUX_"/>
-    <path d="M0,0 L20,10 L20,30 L0,40 Z" class="cell_$procmux$172206"/>
     <g s:x="0" s:y="10" s:pid="A"/>
     <g s:x="0" s:y="30" s:pid="B"/>
     <g s:x="10" s:y="35" s:pid="S"/>
